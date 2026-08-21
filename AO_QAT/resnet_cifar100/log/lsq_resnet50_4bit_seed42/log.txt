@@ -1,0 +1,990 @@
+2026-07-14 05:39:57,082 args = Namespace(method='lsq', model='resnet50', n_bit=4, epochs=200, batch_size=128, learning_rate=0.001, weight_decay=0.0, qsam_ratio=0.001, bn_recal_batches=100, lambda_dampen=0.001, data='./data', save='./models', workers=4, seed=42, pretrained='')
+2026-07-14 05:39:57,083 method=lsq | use_aoq=False | use_qsam=False | stages: [0,40)->[40,120)->[120,200)
+2026-07-14 05:39:57,592 model:
+ResNet(
+  (conv1): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (maxpool): Identity()
+  (layer1): Sequential(
+    (0): Bottleneck(
+      (conv1): QuanConv2d(
+        64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (downsample): Sequential(
+        (0): QuanConv2d(
+          64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+          (quan_w_fn): LSQ()
+          (quan_a_fn): LSQ()
+        )
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): Bottleneck(
+      (conv1): QuanConv2d(
+        256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (2): Bottleneck(
+      (conv1): QuanConv2d(
+        256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+  )
+  (layer2): Sequential(
+    (0): Bottleneck(
+      (conv1): QuanConv2d(
+        256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (downsample): Sequential(
+        (0): QuanConv2d(
+          256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False
+          (quan_w_fn): LSQ()
+          (quan_a_fn): LSQ()
+        )
+        (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): Bottleneck(
+      (conv1): QuanConv2d(
+        512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (2): Bottleneck(
+      (conv1): QuanConv2d(
+        512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (3): Bottleneck(
+      (conv1): QuanConv2d(
+        512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+  )
+  (layer3): Sequential(
+    (0): Bottleneck(
+      (conv1): QuanConv2d(
+        512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (downsample): Sequential(
+        (0): QuanConv2d(
+          512, 1024, kernel_size=(1, 1), stride=(2, 2), bias=False
+          (quan_w_fn): LSQ()
+          (quan_a_fn): LSQ()
+        )
+        (1): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): Bottleneck(
+      (conv1): QuanConv2d(
+        1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (2): Bottleneck(
+      (conv1): QuanConv2d(
+        1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (3): Bottleneck(
+      (conv1): QuanConv2d(
+        1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (4): Bottleneck(
+      (conv1): QuanConv2d(
+        1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (5): Bottleneck(
+      (conv1): QuanConv2d(
+        1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+  )
+  (layer4): Sequential(
+    (0): Bottleneck(
+      (conv1): QuanConv2d(
+        1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (downsample): Sequential(
+        (0): QuanConv2d(
+          1024, 2048, kernel_size=(1, 1), stride=(2, 2), bias=False
+          (quan_w_fn): LSQ()
+          (quan_a_fn): LSQ()
+        )
+        (1): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): Bottleneck(
+      (conv1): QuanConv2d(
+        2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (2): Bottleneck(
+      (conv1): QuanConv2d(
+        2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): QuanConv2d(
+        512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv3): QuanConv2d(
+        512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+  (fc): Linear(in_features=2048, out_features=100, bias=True)
+)
+2026-07-14 05:39:57,594 qSAM: False | tracked modules: 0
+2026-07-14 05:39:57,594 weight params=53 | other params=212
+2026-07-14 05:39:57,751 epoch 0 lr=0.00100 stage=1
+2026-07-14 05:42:30,577 Val: top1=34.500 top5=68.520
+2026-07-14 05:42:30,964 epoch 0 | top1=34.500 | best=34.500
+2026-07-14 05:42:30,965 epoch 1 lr=0.00099 stage=1
+2026-07-14 05:44:54,970 Val: top1=45.180 top5=79.590
+2026-07-14 05:44:55,610 epoch 1 | top1=45.180 | best=45.180
+2026-07-14 05:44:55,611 epoch 2 lr=0.00098 stage=1
+2026-07-14 05:47:27,470 Val: top1=51.170 top5=83.010
+2026-07-14 05:47:28,114 epoch 2 | top1=51.170 | best=51.170
+2026-07-14 05:47:28,115 epoch 3 lr=0.00098 stage=1
+2026-07-14 05:49:52,042 Val: top1=57.170 top5=86.630
+2026-07-14 05:49:52,687 epoch 3 | top1=57.170 | best=57.170
+2026-07-14 05:49:52,689 epoch 4 lr=0.00097 stage=1
+2026-07-14 05:52:20,040 Val: top1=60.110 top5=88.110
+2026-07-14 05:52:20,704 epoch 4 | top1=60.110 | best=60.110
+2026-07-14 05:52:20,705 epoch 5 lr=0.00097 stage=1
+2026-07-14 05:54:49,671 Val: top1=63.160 top5=89.730
+2026-07-14 05:54:50,311 epoch 5 | top1=63.160 | best=63.160
+2026-07-14 05:54:50,312 epoch 6 lr=0.00097 stage=1
+2026-07-14 05:57:14,333 Val: top1=65.350 top5=90.780
+2026-07-14 05:57:14,991 epoch 6 | top1=65.350 | best=65.350
+2026-07-14 05:57:14,992 epoch 7 lr=0.00096 stage=1
+2026-07-14 05:59:46,564 Val: top1=66.330 top5=90.690
+2026-07-14 05:59:47,206 epoch 7 | top1=66.330 | best=66.330
+2026-07-14 05:59:47,207 epoch 8 lr=0.00096 stage=1
+2026-07-14 06:02:11,149 Val: top1=65.560 top5=91.060
+2026-07-14 06:02:11,539 epoch 8 | top1=65.560 | best=66.330
+2026-07-14 06:02:11,540 epoch 9 lr=0.00095 stage=1
+2026-07-14 06:04:41,767 Val: top1=68.150 top5=91.850
+2026-07-14 06:04:42,419 epoch 9 | top1=68.150 | best=68.150
+2026-07-14 06:04:42,420 epoch 10 lr=0.00094 stage=1
+2026-07-14 06:07:08,404 Val: top1=68.920 top5=92.320
+2026-07-14 06:07:09,066 epoch 10 | top1=68.920 | best=68.920
+2026-07-14 06:07:09,067 epoch 11 lr=0.00094 stage=1
+2026-07-14 06:09:32,386 Val: top1=69.420 top5=91.870
+2026-07-14 06:09:33,010 epoch 11 | top1=69.420 | best=69.420
+2026-07-14 06:09:33,011 epoch 12 lr=0.00094 stage=1
+2026-07-14 06:12:04,649 Val: top1=69.580 top5=92.540
+2026-07-14 06:12:05,313 epoch 12 | top1=69.580 | best=69.580
+2026-07-14 06:12:05,314 epoch 13 lr=0.00093 stage=1
+2026-07-14 06:14:29,280 Val: top1=70.600 top5=92.790
+2026-07-14 06:14:29,948 epoch 13 | top1=70.600 | best=70.600
+2026-07-14 06:14:29,949 epoch 14 lr=0.00093 stage=1
+2026-07-14 06:17:01,491 Val: top1=70.490 top5=92.800
+2026-07-14 06:17:01,947 epoch 14 | top1=70.490 | best=70.600
+2026-07-14 06:17:01,948 epoch 15 lr=0.00092 stage=1
+2026-07-14 06:19:25,877 Val: top1=70.890 top5=92.800
+2026-07-14 06:19:26,541 epoch 15 | top1=70.890 | best=70.890
+2026-07-14 06:19:26,542 epoch 16 lr=0.00092 stage=1
+2026-07-14 06:21:52,642 Val: top1=71.920 top5=92.990
+2026-07-14 06:21:53,373 epoch 16 | top1=71.920 | best=71.920
+2026-07-14 06:21:53,374 epoch 17 lr=0.00091 stage=1
+2026-07-14 06:24:23,174 Val: top1=71.720 top5=92.680
+2026-07-14 06:24:23,563 epoch 17 | top1=71.720 | best=71.920
+2026-07-14 06:24:23,564 epoch 18 lr=0.00091 stage=1
+2026-07-14 06:26:47,628 Val: top1=71.180 top5=92.840
+2026-07-14 06:26:48,024 epoch 18 | top1=71.180 | best=71.920
+2026-07-14 06:26:48,025 epoch 19 lr=0.00090 stage=1
+2026-07-14 06:29:19,726 Val: top1=70.760 top5=92.520
+2026-07-14 06:29:20,125 epoch 19 | top1=70.760 | best=71.920
+2026-07-14 06:29:20,126 epoch 20 lr=0.00090 stage=1
+2026-07-14 06:31:44,109 Val: top1=72.030 top5=93.220
+2026-07-14 06:31:44,767 epoch 20 | top1=72.030 | best=72.030
+2026-07-14 06:31:44,768 epoch 21 lr=0.00089 stage=1
+2026-07-14 06:34:14,100 Val: top1=71.620 top5=92.630
+2026-07-14 06:34:14,498 epoch 21 | top1=71.620 | best=72.030
+2026-07-14 06:34:14,499 epoch 22 lr=0.00089 stage=1
+2026-07-14 06:36:41,746 Val: top1=71.030 top5=92.410
+2026-07-14 06:36:42,144 epoch 22 | top1=71.030 | best=72.030
+2026-07-14 06:36:42,144 epoch 23 lr=0.00088 stage=1
+2026-07-14 06:39:05,624 Val: top1=72.100 top5=92.910
+2026-07-14 06:39:06,288 epoch 23 | top1=72.100 | best=72.100
+2026-07-14 06:39:06,289 epoch 24 lr=0.00088 stage=1
+2026-07-14 06:41:37,985 Val: top1=72.320 top5=93.260
+2026-07-14 06:41:38,647 epoch 24 | top1=72.320 | best=72.320
+2026-07-14 06:41:38,648 epoch 25 lr=0.00087 stage=1
+2026-07-14 06:44:02,949 Val: top1=71.960 top5=92.880
+2026-07-14 06:44:03,311 epoch 25 | top1=71.960 | best=72.320
+2026-07-14 06:44:03,312 epoch 26 lr=0.00086 stage=1
+2026-07-14 06:46:35,003 Val: top1=73.000 top5=92.950
+2026-07-14 06:46:35,628 epoch 26 | top1=73.000 | best=73.000
+2026-07-14 06:46:35,629 epoch 27 lr=0.00086 stage=1
+2026-07-14 06:48:59,604 Val: top1=73.420 top5=93.350
+2026-07-14 06:49:00,263 epoch 27 | top1=73.420 | best=73.420
+2026-07-14 06:49:00,264 epoch 28 lr=0.00085 stage=1
+2026-07-14 06:51:25,782 Val: top1=73.490 top5=93.470
+2026-07-14 06:51:26,520 epoch 28 | top1=73.490 | best=73.490
+2026-07-14 06:51:26,522 epoch 29 lr=0.00085 stage=1
+2026-07-14 06:53:56,950 Val: top1=72.080 top5=93.290
+2026-07-14 06:53:57,352 epoch 29 | top1=72.080 | best=73.490
+2026-07-14 06:53:57,353 epoch 30 lr=0.00084 stage=1
+2026-07-14 06:56:21,500 Val: top1=72.820 top5=93.080
+2026-07-14 06:56:21,864 epoch 30 | top1=72.820 | best=73.490
+2026-07-14 06:56:21,865 epoch 31 lr=0.00084 stage=1
+2026-07-14 06:58:53,955 Val: top1=72.180 top5=93.170
+2026-07-14 06:58:54,355 epoch 31 | top1=72.180 | best=73.490
+2026-07-14 06:58:54,356 epoch 32 lr=0.00084 stage=1
+2026-07-14 07:01:18,346 Val: top1=72.920 top5=93.060
+2026-07-14 07:01:18,747 epoch 32 | top1=72.920 | best=73.490
+2026-07-14 07:01:18,748 epoch 33 lr=0.00083 stage=1
+2026-07-14 07:03:46,848 Val: top1=73.370 top5=93.190
+2026-07-14 07:03:47,250 epoch 33 | top1=73.370 | best=73.490
+2026-07-14 07:03:47,251 epoch 34 lr=0.00082 stage=1
+2026-07-14 07:06:15,570 Val: top1=72.550 top5=93.270
+2026-07-14 07:06:15,974 epoch 34 | top1=72.550 | best=73.490
+2026-07-14 07:06:15,974 epoch 35 lr=0.00082 stage=1
+2026-07-14 07:08:39,375 Val: top1=72.930 top5=92.810
+2026-07-14 07:08:39,780 epoch 35 | top1=72.930 | best=73.490
+2026-07-14 07:08:39,781 epoch 36 lr=0.00081 stage=1
+2026-07-14 07:11:11,455 Val: top1=73.120 top5=93.430
+2026-07-14 07:11:11,853 epoch 36 | top1=73.120 | best=73.490
+2026-07-14 07:11:11,854 epoch 37 lr=0.00081 stage=1
+2026-07-14 07:13:35,773 Val: top1=73.080 top5=93.300
+2026-07-14 07:13:36,171 epoch 37 | top1=73.080 | best=73.490
+2026-07-14 07:13:36,172 epoch 38 lr=0.00080 stage=1
+2026-07-14 07:16:08,024 Val: top1=73.050 top5=92.840
+2026-07-14 07:16:08,431 epoch 38 | top1=73.050 | best=73.490
+2026-07-14 07:16:08,432 epoch 39 lr=0.00080 stage=1
+2026-07-14 07:18:33,113 Val: top1=73.670 top5=93.300
+2026-07-14 07:18:33,780 epoch 39 | top1=73.670 | best=73.670
+2026-07-14 07:18:33,781 epoch 40 lr=0.00080 stage=2
+2026-07-14 07:20:58,903 Val: top1=73.480 top5=93.000
+2026-07-14 07:20:59,311 epoch 40 | top1=73.480 | best=73.670
+2026-07-14 07:20:59,312 epoch 41 lr=0.00079 stage=2
+2026-07-14 07:23:30,342 Val: top1=73.690 top5=93.180
+2026-07-14 07:23:31,015 epoch 41 | top1=73.690 | best=73.690
+2026-07-14 07:23:31,016 epoch 42 lr=0.00078 stage=2
+2026-07-14 07:25:55,409 Val: top1=73.860 top5=93.220
+2026-07-14 07:25:56,077 epoch 42 | top1=73.860 | best=73.860
+2026-07-14 07:25:56,078 epoch 43 lr=0.00078 stage=2
+2026-07-14 07:28:28,023 Val: top1=73.500 top5=93.300
+2026-07-14 07:28:28,423 epoch 43 | top1=73.500 | best=73.860
+2026-07-14 07:28:28,424 epoch 44 lr=0.00078 stage=2
+2026-07-14 07:30:52,929 Val: top1=73.640 top5=93.290
+2026-07-14 07:30:53,330 epoch 44 | top1=73.640 | best=73.860
+2026-07-14 07:30:53,331 epoch 45 lr=0.00077 stage=2
+2026-07-14 07:33:20,224 Val: top1=73.060 top5=92.880
+2026-07-14 07:33:20,631 epoch 45 | top1=73.060 | best=73.860
+2026-07-14 07:33:20,632 epoch 46 lr=0.00077 stage=2
+2026-07-14 07:35:50,758 Val: top1=74.390 top5=93.530
+2026-07-14 07:35:51,386 epoch 46 | top1=74.390 | best=74.390
+2026-07-14 07:35:51,386 epoch 47 lr=0.00076 stage=2
+2026-07-14 07:38:15,635 Val: top1=73.980 top5=93.600
+2026-07-14 07:38:16,036 epoch 47 | top1=73.980 | best=74.390
+2026-07-14 07:38:16,037 epoch 48 lr=0.00076 stage=2
+2026-07-14 07:40:48,208 Val: top1=73.750 top5=93.170
+2026-07-14 07:40:48,611 epoch 48 | top1=73.750 | best=74.390
+2026-07-14 07:40:48,611 epoch 49 lr=0.00075 stage=2
+2026-07-14 07:43:12,941 Val: top1=74.040 top5=93.590
+2026-07-14 07:43:13,342 epoch 49 | top1=74.040 | best=74.390
+2026-07-14 07:43:13,343 epoch 50 lr=0.00075 stage=2
+2026-07-14 07:45:42,788 Val: top1=74.270 top5=93.430
+2026-07-14 07:45:43,191 epoch 50 | top1=74.270 | best=74.390
+2026-07-14 07:45:43,192 epoch 51 lr=0.00074 stage=2
+2026-07-14 07:48:10,428 Val: top1=73.910 top5=93.470
+2026-07-14 07:48:10,830 epoch 51 | top1=73.910 | best=74.390
+2026-07-14 07:48:10,831 epoch 52 lr=0.00073 stage=2
+2026-07-14 07:49:49,331 Val: top1=74.490 top5=93.540
+2026-07-14 07:49:49,990 epoch 52 | top1=74.490 | best=74.490
+2026-07-14 07:49:49,991 epoch 53 lr=0.00073 stage=2
+2026-07-14 07:51:11,285 Val: top1=73.980 top5=93.500
+2026-07-14 07:51:11,677 epoch 53 | top1=73.980 | best=74.490
+2026-07-14 07:51:11,678 epoch 54 lr=0.00072 stage=2
+2026-07-14 07:52:33,014 Val: top1=74.080 top5=93.370
+2026-07-14 07:52:33,405 epoch 54 | top1=74.080 | best=74.490
+2026-07-14 07:52:33,406 epoch 55 lr=0.00072 stage=2
+2026-07-14 07:53:54,660 Val: top1=73.150 top5=92.760
+2026-07-14 07:53:55,073 epoch 55 | top1=73.150 | best=74.490
+2026-07-14 07:53:55,074 epoch 56 lr=0.00072 stage=2
+2026-07-14 07:55:16,326 Val: top1=74.400 top5=93.410
+2026-07-14 07:55:16,677 epoch 56 | top1=74.400 | best=74.490
+2026-07-14 07:55:16,678 epoch 57 lr=0.00071 stage=2
+2026-07-14 07:56:37,995 Val: top1=74.030 top5=93.460
+2026-07-14 07:56:38,387 epoch 57 | top1=74.030 | best=74.490
+2026-07-14 07:56:38,388 epoch 58 lr=0.00071 stage=2
+2026-07-14 07:57:59,636 Val: top1=74.570 top5=93.570
+2026-07-14 07:58:00,249 epoch 58 | top1=74.570 | best=74.570
+2026-07-14 07:58:00,250 epoch 59 lr=0.00070 stage=2
+2026-07-14 07:59:21,525 Val: top1=74.020 top5=93.460
+2026-07-14 07:59:21,878 epoch 59 | top1=74.020 | best=74.570
+2026-07-14 07:59:21,879 epoch 60 lr=0.00070 stage=2
+2026-07-14 08:00:43,123 Val: top1=75.010 top5=93.770
+2026-07-14 08:00:43,776 epoch 60 | top1=75.010 | best=75.010
+2026-07-14 08:00:43,777 epoch 61 lr=0.00069 stage=2
+2026-07-14 08:02:05,035 Val: top1=74.660 top5=93.350
+2026-07-14 08:02:05,422 epoch 61 | top1=74.660 | best=75.010
+2026-07-14 08:02:05,423 epoch 62 lr=0.00069 stage=2
+2026-07-14 08:03:26,691 Val: top1=74.750 top5=93.200
+2026-07-14 08:03:27,086 epoch 62 | top1=74.750 | best=75.010
+2026-07-14 08:03:27,087 epoch 63 lr=0.00068 stage=2
+2026-07-14 08:04:48,386 Val: top1=74.380 top5=93.100
+2026-07-14 08:04:48,780 epoch 63 | top1=74.380 | best=75.010
+2026-07-14 08:04:48,781 epoch 64 lr=0.00068 stage=2
+2026-07-14 08:06:10,045 Val: top1=74.530 top5=93.370
+2026-07-14 08:06:10,438 epoch 64 | top1=74.530 | best=75.010
+2026-07-14 08:06:10,439 epoch 65 lr=0.00067 stage=2
+2026-07-14 08:07:31,749 Val: top1=74.880 top5=93.580
+2026-07-14 08:07:32,141 epoch 65 | top1=74.880 | best=75.010
+2026-07-14 08:07:32,142 epoch 66 lr=0.00067 stage=2
+2026-07-14 08:08:53,347 Val: top1=74.670 top5=93.360
+2026-07-14 08:08:53,735 epoch 66 | top1=74.670 | best=75.010
+2026-07-14 08:08:53,735 epoch 67 lr=0.00066 stage=2
+2026-07-14 08:10:15,083 Val: top1=74.880 top5=93.330
+2026-07-14 08:10:15,475 epoch 67 | top1=74.880 | best=75.010
+2026-07-14 08:10:15,476 epoch 68 lr=0.00066 stage=2
+2026-07-14 08:11:36,731 Val: top1=75.530 top5=93.560
+2026-07-14 08:11:37,379 epoch 68 | top1=75.530 | best=75.530
+2026-07-14 08:11:37,380 epoch 69 lr=0.00065 stage=2
+2026-07-14 08:12:58,690 Val: top1=75.720 top5=93.800
+2026-07-14 08:12:59,351 epoch 69 | top1=75.720 | best=75.720
+2026-07-14 08:12:59,352 epoch 70 lr=0.00065 stage=2
+2026-07-14 08:14:20,541 Val: top1=74.960 top5=93.740
+2026-07-14 08:14:20,932 epoch 70 | top1=74.960 | best=75.720
+2026-07-14 08:14:20,933 epoch 71 lr=0.00064 stage=2
+2026-07-14 08:15:42,255 Val: top1=74.980 top5=93.440
+2026-07-14 08:15:42,647 epoch 71 | top1=74.980 | best=75.720
+2026-07-14 08:15:42,648 epoch 72 lr=0.00064 stage=2
+2026-07-14 08:17:03,904 Val: top1=74.970 top5=93.210
+2026-07-14 08:17:04,295 epoch 72 | top1=74.970 | best=75.720
+2026-07-14 08:17:04,296 epoch 73 lr=0.00063 stage=2
+2026-07-14 08:18:25,603 Val: top1=75.280 top5=93.750
+2026-07-14 08:18:25,996 epoch 73 | top1=75.280 | best=75.720
+2026-07-14 08:18:25,997 epoch 74 lr=0.00063 stage=2
+2026-07-14 08:19:47,263 Val: top1=74.920 top5=93.450
+2026-07-14 08:19:47,649 epoch 74 | top1=74.920 | best=75.720
+2026-07-14 08:19:47,651 epoch 75 lr=0.00062 stage=2
+2026-07-14 08:21:08,946 Val: top1=75.530 top5=93.430
+2026-07-14 08:21:09,300 epoch 75 | top1=75.530 | best=75.720
+2026-07-14 08:21:09,300 epoch 76 lr=0.00061 stage=2
+2026-07-14 08:22:30,530 Val: top1=74.860 top5=93.510
+2026-07-14 08:22:30,922 epoch 76 | top1=74.860 | best=75.720
+2026-07-14 08:22:30,922 epoch 77 lr=0.00061 stage=2
+2026-07-14 08:23:52,232 Val: top1=75.600 top5=93.870
+2026-07-14 08:23:52,622 epoch 77 | top1=75.600 | best=75.720
+2026-07-14 08:23:52,623 epoch 78 lr=0.00060 stage=2
+2026-07-14 08:25:13,806 Val: top1=75.350 top5=93.440
+2026-07-14 08:25:14,195 epoch 78 | top1=75.350 | best=75.720
+2026-07-14 08:25:14,196 epoch 79 lr=0.00060 stage=2
+2026-07-14 08:26:35,539 Val: top1=75.460 top5=93.430
+2026-07-14 08:26:35,932 epoch 79 | top1=75.460 | best=75.720
+2026-07-14 08:26:35,933 epoch 80 lr=0.00059 stage=2
+2026-07-14 08:27:57,183 Val: top1=74.650 top5=93.230
+2026-07-14 08:27:57,571 epoch 80 | top1=74.650 | best=75.720
+2026-07-14 08:27:57,572 epoch 81 lr=0.00059 stage=2
+2026-07-14 08:29:18,856 Val: top1=74.810 top5=93.370
+2026-07-14 08:29:19,244 epoch 81 | top1=74.810 | best=75.720
+2026-07-14 08:29:19,245 epoch 82 lr=0.00059 stage=2
+2026-07-14 08:30:40,491 Val: top1=75.890 top5=93.730
+2026-07-14 08:30:41,152 epoch 82 | top1=75.890 | best=75.890
+2026-07-14 08:30:41,153 epoch 83 lr=0.00058 stage=2
+2026-07-14 08:32:02,451 Val: top1=75.860 top5=93.520
+2026-07-14 08:32:02,839 epoch 83 | top1=75.860 | best=75.890
+2026-07-14 08:32:02,840 epoch 84 lr=0.00057 stage=2
+2026-07-14 08:33:24,084 Val: top1=74.940 top5=93.750
+2026-07-14 08:33:24,476 epoch 84 | top1=74.940 | best=75.890
+2026-07-14 08:33:24,477 epoch 85 lr=0.00057 stage=2
+2026-07-14 08:34:45,788 Val: top1=75.350 top5=93.550
+2026-07-14 08:34:46,179 epoch 85 | top1=75.350 | best=75.890
+2026-07-14 08:34:46,180 epoch 86 lr=0.00056 stage=2
+2026-07-14 08:36:07,402 Val: top1=74.970 top5=93.500
+2026-07-14 08:36:07,795 epoch 86 | top1=74.970 | best=75.890
+2026-07-14 08:36:07,796 epoch 87 lr=0.00056 stage=2
+2026-07-14 08:37:28,983 Val: top1=75.040 top5=93.520
+2026-07-14 08:37:29,339 epoch 87 | top1=75.040 | best=75.890
+2026-07-14 08:37:29,340 epoch 88 lr=0.00055 stage=2
+2026-07-14 08:38:50,460 Val: top1=75.260 top5=93.410
+2026-07-14 08:38:50,847 epoch 88 | top1=75.260 | best=75.890
+2026-07-14 08:38:50,848 epoch 89 lr=0.00055 stage=2
+2026-07-14 08:40:12,042 Val: top1=75.760 top5=93.810
+2026-07-14 08:40:12,435 epoch 89 | top1=75.760 | best=75.890
+2026-07-14 08:40:12,436 epoch 90 lr=0.00054 stage=2
+2026-07-14 08:41:33,566 Val: top1=75.710 top5=93.640
+2026-07-14 08:41:33,955 epoch 90 | top1=75.710 | best=75.890
+2026-07-14 08:41:33,956 epoch 91 lr=0.00054 stage=2
+2026-07-14 08:42:55,140 Val: top1=75.730 top5=93.470
+2026-07-14 08:42:55,527 epoch 91 | top1=75.730 | best=75.890
+2026-07-14 08:42:55,528 epoch 92 lr=0.00053 stage=2
+2026-07-14 08:44:16,666 Val: top1=76.190 top5=93.760
+2026-07-14 08:44:17,283 epoch 92 | top1=76.190 | best=76.190
+2026-07-14 08:44:17,284 epoch 93 lr=0.00053 stage=2
+2026-07-14 08:45:38,438 Val: top1=75.360 top5=93.730
+2026-07-14 08:45:38,828 epoch 93 | top1=75.360 | best=76.190
+2026-07-14 08:45:38,829 epoch 94 lr=0.00053 stage=2
+2026-07-14 08:46:59,977 Val: top1=75.620 top5=93.490
+2026-07-14 08:47:00,370 epoch 94 | top1=75.620 | best=76.190
+2026-07-14 08:47:00,371 epoch 95 lr=0.00052 stage=2
+2026-07-14 08:48:21,559 Val: top1=76.090 top5=93.520
+2026-07-14 08:48:21,946 epoch 95 | top1=76.090 | best=76.190
+2026-07-14 08:48:21,947 epoch 96 lr=0.00052 stage=2
+2026-07-14 08:49:43,070 Val: top1=75.770 top5=93.980
+2026-07-14 08:49:43,480 epoch 96 | top1=75.770 | best=76.190
+2026-07-14 08:49:43,481 epoch 97 lr=0.00051 stage=2
+2026-07-14 08:51:04,617 Val: top1=75.300 top5=93.600
+2026-07-14 08:51:05,004 epoch 97 | top1=75.300 | best=76.190
+2026-07-14 08:51:05,005 epoch 98 lr=0.00051 stage=2
+2026-07-14 08:52:26,118 Val: top1=75.830 top5=93.770
+2026-07-14 08:52:26,509 epoch 98 | top1=75.830 | best=76.190
+2026-07-14 08:52:26,510 epoch 99 lr=0.00050 stage=2
+2026-07-14 08:53:47,696 Val: top1=76.060 top5=94.000
+2026-07-14 08:53:48,087 epoch 99 | top1=76.060 | best=76.190
+2026-07-14 08:53:48,088 epoch 100 lr=0.00049 stage=2
+2026-07-14 08:55:09,221 Val: top1=75.700 top5=93.410
+2026-07-14 08:55:09,613 epoch 100 | top1=75.700 | best=76.190
+2026-07-14 08:55:09,614 epoch 101 lr=0.00049 stage=2
+2026-07-14 08:56:30,818 Val: top1=76.500 top5=93.850
+2026-07-14 08:56:31,438 epoch 101 | top1=76.500 | best=76.500
+2026-07-14 08:56:31,439 epoch 102 lr=0.00048 stage=2
+2026-07-14 08:57:52,570 Val: top1=76.090 top5=93.710
+2026-07-14 08:57:53,016 epoch 102 | top1=76.090 | best=76.500
+2026-07-14 08:57:53,017 epoch 103 lr=0.00048 stage=2
+2026-07-14 08:59:14,134 Val: top1=76.050 top5=93.880
+2026-07-14 08:59:14,525 epoch 103 | top1=76.050 | best=76.500
+2026-07-14 08:59:14,526 epoch 104 lr=0.00047 stage=2
+2026-07-14 09:00:35,645 Val: top1=75.820 top5=93.970
+2026-07-14 09:00:35,998 epoch 104 | top1=75.820 | best=76.500
+2026-07-14 09:00:35,999 epoch 105 lr=0.00047 stage=2
+2026-07-14 09:01:57,265 Val: top1=75.890 top5=93.640
+2026-07-14 09:01:57,618 epoch 105 | top1=75.890 | best=76.500
+2026-07-14 09:01:57,619 epoch 106 lr=0.00046 stage=2
+2026-07-14 09:03:18,841 Val: top1=75.950 top5=93.950
+2026-07-14 09:03:19,230 epoch 106 | top1=75.950 | best=76.500
+2026-07-14 09:03:19,230 epoch 107 lr=0.00046 stage=2
+2026-07-14 09:04:40,341 Val: top1=76.100 top5=93.720
+2026-07-14 09:04:40,694 epoch 107 | top1=76.100 | best=76.500
+2026-07-14 09:04:40,695 epoch 108 lr=0.00045 stage=2
+2026-07-14 09:06:01,889 Val: top1=76.580 top5=93.940
+2026-07-14 09:06:02,547 epoch 108 | top1=76.580 | best=76.580
+2026-07-14 09:06:02,548 epoch 109 lr=0.00045 stage=2
+2026-07-14 09:07:23,664 Val: top1=75.400 top5=93.950
+2026-07-14 09:07:24,020 epoch 109 | top1=75.400 | best=76.580
+2026-07-14 09:07:24,021 epoch 110 lr=0.00044 stage=2
+2026-07-14 09:08:45,209 Val: top1=76.180 top5=94.010
+2026-07-14 09:08:45,559 epoch 110 | top1=76.180 | best=76.580
+2026-07-14 09:08:45,560 epoch 111 lr=0.00044 stage=2
+2026-07-14 09:10:06,675 Val: top1=76.130 top5=93.830
+2026-07-14 09:10:07,031 epoch 111 | top1=76.130 | best=76.580
+2026-07-14 09:10:07,032 epoch 112 lr=0.00044 stage=2
+2026-07-14 09:11:28,238 Val: top1=76.430 top5=93.900
+2026-07-14 09:11:28,626 epoch 112 | top1=76.430 | best=76.580
+2026-07-14 09:11:28,627 epoch 113 lr=0.00043 stage=2
+2026-07-14 09:12:49,749 Val: top1=75.810 top5=93.950
+2026-07-14 09:12:50,137 epoch 113 | top1=75.810 | best=76.580
+2026-07-14 09:12:50,138 epoch 114 lr=0.00043 stage=2
+2026-07-14 09:14:11,307 Val: top1=76.350 top5=94.010
+2026-07-14 09:14:11,660 epoch 114 | top1=76.350 | best=76.580
+2026-07-14 09:14:11,661 epoch 115 lr=0.00042 stage=2
+2026-07-14 09:15:32,820 Val: top1=76.140 top5=93.690
+2026-07-14 09:15:33,212 epoch 115 | top1=76.140 | best=76.580
+2026-07-14 09:15:33,213 epoch 116 lr=0.00042 stage=2
+2026-07-14 09:16:54,407 Val: top1=76.850 top5=93.980
+2026-07-14 09:16:55,057 epoch 116 | top1=76.850 | best=76.850
+2026-07-14 09:16:55,058 epoch 117 lr=0.00041 stage=2
+2026-07-14 09:18:16,164 Val: top1=76.190 top5=93.770
+2026-07-14 09:18:16,558 epoch 117 | top1=76.190 | best=76.850
+2026-07-14 09:18:16,559 epoch 118 lr=0.00041 stage=2
+2026-07-14 09:19:37,787 Val: top1=75.870 top5=93.600
+2026-07-14 09:19:38,141 epoch 118 | top1=75.870 | best=76.850
+2026-07-14 09:19:38,142 epoch 119 lr=0.00040 stage=2
+2026-07-14 09:20:59,404 Val: top1=75.750 top5=93.560
+2026-07-14 09:20:59,797 epoch 119 | top1=75.750 | best=76.850
+2026-07-14 09:20:59,798 epoch 120 lr=0.00040 stage=3
+2026-07-14 09:22:21,019 Val: top1=76.240 top5=93.880
+2026-07-14 09:22:21,413 epoch 120 | top1=76.240 | best=76.850
+2026-07-14 09:22:21,414 epoch 121 lr=0.00039 stage=3
+2026-07-14 09:23:42,572 Val: top1=76.330 top5=93.790
+2026-07-14 09:23:42,926 epoch 121 | top1=76.330 | best=76.850
+2026-07-14 09:23:42,926 epoch 122 lr=0.00039 stage=3
+2026-07-14 09:25:04,100 Val: top1=76.890 top5=93.820
+2026-07-14 09:25:04,758 epoch 122 | top1=76.890 | best=76.890
+2026-07-14 09:25:04,759 epoch 123 lr=0.00038 stage=3
+2026-07-14 09:26:25,840 Val: top1=76.700 top5=94.020
+2026-07-14 09:26:26,230 epoch 123 | top1=76.700 | best=76.890
+2026-07-14 09:26:26,231 epoch 124 lr=0.00038 stage=3
+2026-07-14 09:27:47,441 Val: top1=75.910 top5=93.950
+2026-07-14 09:27:47,828 epoch 124 | top1=75.910 | best=76.890
+2026-07-14 09:27:47,829 epoch 125 lr=0.00037 stage=3
+2026-07-14 09:29:08,949 Val: top1=76.630 top5=93.980
+2026-07-14 09:29:09,343 epoch 125 | top1=76.630 | best=76.890
+2026-07-14 09:29:09,344 epoch 126 lr=0.00036 stage=3
+2026-07-14 09:30:30,539 Val: top1=76.500 top5=94.160
+2026-07-14 09:30:30,930 epoch 126 | top1=76.500 | best=76.890
+2026-07-14 09:30:30,931 epoch 127 lr=0.00036 stage=3
+2026-07-14 09:31:52,036 Val: top1=76.590 top5=93.910
+2026-07-14 09:31:52,426 epoch 127 | top1=76.590 | best=76.890
+2026-07-14 09:31:52,427 epoch 128 lr=0.00036 stage=3
+2026-07-14 09:33:13,651 Val: top1=76.790 top5=93.890
+2026-07-14 09:33:14,045 epoch 128 | top1=76.790 | best=76.890
+2026-07-14 09:33:14,046 epoch 129 lr=0.00035 stage=3
+2026-07-14 09:34:35,187 Val: top1=76.650 top5=94.130
+2026-07-14 09:34:35,635 epoch 129 | top1=76.650 | best=76.890
+2026-07-14 09:34:35,636 epoch 130 lr=0.00034 stage=3
+2026-07-14 09:35:56,780 Val: top1=76.090 top5=93.740
+2026-07-14 09:35:57,172 epoch 130 | top1=76.090 | best=76.890
+2026-07-14 09:35:57,172 epoch 131 lr=0.00034 stage=3
+2026-07-14 09:37:18,328 Val: top1=76.820 top5=93.950
+2026-07-14 09:37:18,686 epoch 131 | top1=76.820 | best=76.890
+2026-07-14 09:37:18,687 epoch 132 lr=0.00033 stage=3
+2026-07-14 09:38:39,904 Val: top1=76.780 top5=93.810
+2026-07-14 09:38:40,299 epoch 132 | top1=76.780 | best=76.890
+2026-07-14 09:38:40,300 epoch 133 lr=0.00033 stage=3
+2026-07-14 09:40:01,451 Val: top1=76.810 top5=93.760
+2026-07-14 09:40:01,839 epoch 133 | top1=76.810 | best=76.890
+2026-07-14 09:40:01,840 epoch 134 lr=0.00032 stage=3
+2026-07-14 09:41:23,074 Val: top1=76.770 top5=94.030
+2026-07-14 09:41:23,429 epoch 134 | top1=76.770 | best=76.890
+2026-07-14 09:41:23,430 epoch 135 lr=0.00032 stage=3
+2026-07-14 09:42:44,570 Val: top1=76.580 top5=93.900
+2026-07-14 09:42:44,960 epoch 135 | top1=76.580 | best=76.890
+2026-07-14 09:42:44,961 epoch 136 lr=0.00031 stage=3
+2026-07-14 09:44:06,189 Val: top1=77.360 top5=94.220
+2026-07-14 09:44:06,839 epoch 136 | top1=77.360 | best=77.360
+2026-07-14 09:44:06,840 epoch 137 lr=0.00031 stage=3
+2026-07-14 09:45:28,010 Val: top1=76.510 top5=94.070
+2026-07-14 09:45:28,405 epoch 137 | top1=76.510 | best=77.360
+2026-07-14 09:45:28,406 epoch 138 lr=0.00031 stage=3
+2026-07-14 09:46:49,632 Val: top1=76.660 top5=93.780
+2026-07-14 09:46:49,984 epoch 138 | top1=76.660 | best=77.360
+2026-07-14 09:46:49,985 epoch 139 lr=0.00030 stage=3
+2026-07-14 09:48:11,163 Val: top1=76.760 top5=94.340
+2026-07-14 09:48:11,552 epoch 139 | top1=76.760 | best=77.360
+2026-07-14 09:48:11,553 epoch 140 lr=0.00030 stage=3
+2026-07-14 09:49:32,798 Val: top1=76.980 top5=94.340
+2026-07-14 09:49:33,161 epoch 140 | top1=76.980 | best=77.360
+2026-07-14 09:49:33,162 epoch 141 lr=0.00029 stage=3
+2026-07-14 09:50:54,352 Val: top1=77.110 top5=94.070
+2026-07-14 09:50:54,739 epoch 141 | top1=77.110 | best=77.360
+2026-07-14 09:50:54,740 epoch 142 lr=0.00029 stage=3
+2026-07-14 09:52:15,962 Val: top1=76.880 top5=94.040
+2026-07-14 09:52:16,349 epoch 142 | top1=76.880 | best=77.360
+2026-07-14 09:52:16,350 epoch 143 lr=0.00028 stage=3
+2026-07-14 09:53:37,524 Val: top1=76.940 top5=94.210
+2026-07-14 09:53:37,916 epoch 143 | top1=76.940 | best=77.360
+2026-07-14 09:53:37,917 epoch 144 lr=0.00028 stage=3
+2026-07-14 09:54:59,180 Val: top1=76.640 top5=93.980
+2026-07-14 09:54:59,570 epoch 144 | top1=76.640 | best=77.360
+2026-07-14 09:54:59,571 epoch 145 lr=0.00027 stage=3
+2026-07-14 09:56:20,738 Val: top1=76.590 top5=93.940
+2026-07-14 09:56:21,125 epoch 145 | top1=76.590 | best=77.360
+2026-07-14 09:56:21,126 epoch 146 lr=0.00027 stage=3
+2026-07-14 09:57:42,388 Val: top1=77.370 top5=94.030
+2026-07-14 09:57:43,050 epoch 146 | top1=77.370 | best=77.370
+2026-07-14 09:57:43,051 epoch 147 lr=0.00026 stage=3
+2026-07-14 09:59:04,242 Val: top1=76.710 top5=94.010
+2026-07-14 09:59:04,630 epoch 147 | top1=76.710 | best=77.370
+2026-07-14 09:59:04,631 epoch 148 lr=0.00026 stage=3
+2026-07-14 10:00:25,855 Val: top1=77.450 top5=93.960
+2026-07-14 10:00:26,501 epoch 148 | top1=77.450 | best=77.450
+2026-07-14 10:00:26,502 epoch 149 lr=0.00025 stage=3
+2026-07-14 10:01:47,689 Val: top1=77.270 top5=94.280
+2026-07-14 10:01:48,047 epoch 149 | top1=77.270 | best=77.450
+2026-07-14 10:01:48,048 epoch 150 lr=0.00024 stage=3
+2026-07-14 10:03:09,315 Val: top1=77.040 top5=93.980
+2026-07-14 10:03:09,715 epoch 150 | top1=77.040 | best=77.450
+2026-07-14 10:03:09,716 epoch 151 lr=0.00024 stage=3
+2026-07-14 10:04:30,915 Val: top1=77.380 top5=94.270
+2026-07-14 10:04:31,364 epoch 151 | top1=77.380 | best=77.450
+2026-07-14 10:04:31,365 epoch 152 lr=0.00023 stage=3
+2026-07-14 10:05:52,537 Val: top1=77.340 top5=94.370
+2026-07-14 10:05:52,930 epoch 152 | top1=77.340 | best=77.450
+2026-07-14 10:05:52,931 epoch 153 lr=0.00023 stage=3
+2026-07-14 10:07:14,116 Val: top1=77.460 top5=94.420
+2026-07-14 10:07:14,829 epoch 153 | top1=77.460 | best=77.460
+2026-07-14 10:07:14,830 epoch 154 lr=0.00022 stage=3
+2026-07-14 10:08:36,024 Val: top1=77.610 top5=94.340
+2026-07-14 10:08:36,691 epoch 154 | top1=77.610 | best=77.610
+2026-07-14 10:08:36,692 epoch 155 lr=0.00022 stage=3
+2026-07-14 10:09:57,899 Val: top1=77.800 top5=94.380
+2026-07-14 10:09:58,509 epoch 155 | top1=77.800 | best=77.800
+2026-07-14 10:09:58,510 epoch 156 lr=0.00021 stage=3
+2026-07-14 10:11:19,690 Val: top1=77.090 top5=94.090
+2026-07-14 10:11:20,080 epoch 156 | top1=77.090 | best=77.800
+2026-07-14 10:11:20,081 epoch 157 lr=0.00021 stage=3
+2026-07-14 10:12:41,318 Val: top1=77.180 top5=94.320
+2026-07-14 10:12:41,715 epoch 157 | top1=77.180 | best=77.800
+2026-07-14 10:12:41,716 epoch 158 lr=0.00020 stage=3
+2026-07-14 10:14:02,890 Val: top1=77.060 top5=94.060
+2026-07-14 10:14:03,241 epoch 158 | top1=77.060 | best=77.800
+2026-07-14 10:14:03,242 epoch 159 lr=0.00020 stage=3
+2026-07-14 10:15:24,469 Val: top1=77.680 top5=93.950
+2026-07-14 10:15:24,856 epoch 159 | top1=77.680 | best=77.800
+2026-07-14 10:15:24,857 epoch 160 lr=0.00019 stage=3
+2026-07-14 10:16:46,030 Val: top1=77.820 top5=94.250
+2026-07-14 10:16:46,687 epoch 160 | top1=77.820 | best=77.820
+2026-07-14 10:16:46,688 epoch 161 lr=0.00019 stage=3
+2026-07-14 10:18:07,934 Val: top1=77.460 top5=94.290
+2026-07-14 10:18:08,327 epoch 161 | top1=77.460 | best=77.820
+2026-07-14 10:18:08,328 epoch 162 lr=0.00019 stage=3
+2026-07-14 10:19:29,516 Val: top1=77.410 top5=94.410
+2026-07-14 10:19:29,907 epoch 162 | top1=77.410 | best=77.820
+2026-07-14 10:19:29,908 epoch 163 lr=0.00018 stage=3
+2026-07-14 10:20:51,189 Val: top1=77.430 top5=94.240
+2026-07-14 10:20:51,579 epoch 163 | top1=77.430 | best=77.820
+2026-07-14 10:20:51,580 epoch 164 lr=0.00018 stage=3
+2026-07-14 10:22:12,746 Val: top1=77.600 top5=94.430
+2026-07-14 10:22:13,097 epoch 164 | top1=77.600 | best=77.820
+2026-07-14 10:22:13,098 epoch 165 lr=0.00017 stage=3
+2026-07-14 10:23:34,369 Val: top1=77.660 top5=94.490
+2026-07-14 10:23:34,766 epoch 165 | top1=77.660 | best=77.820
+2026-07-14 10:23:34,767 epoch 166 lr=0.00017 stage=3
+2026-07-14 10:24:55,929 Val: top1=77.340 top5=94.210
+2026-07-14 10:24:56,318 epoch 166 | top1=77.340 | best=77.820
+2026-07-14 10:24:56,319 epoch 167 lr=0.00016 stage=3
+2026-07-14 10:26:17,578 Val: top1=77.410 top5=94.480
+2026-07-14 10:26:17,930 epoch 167 | top1=77.410 | best=77.820
+2026-07-14 10:26:17,931 epoch 168 lr=0.00016 stage=3
+2026-07-14 10:27:39,124 Val: top1=77.440 top5=94.550
+2026-07-14 10:27:39,518 epoch 168 | top1=77.440 | best=77.820
+2026-07-14 10:27:39,519 epoch 169 lr=0.00015 stage=3
+2026-07-14 10:29:00,782 Val: top1=77.500 top5=94.390
+2026-07-14 10:29:01,171 epoch 169 | top1=77.500 | best=77.820
+2026-07-14 10:29:01,172 epoch 170 lr=0.00015 stage=3
+2026-07-14 10:30:22,355 Val: top1=77.970 top5=94.320
+2026-07-14 10:30:22,964 epoch 170 | top1=77.970 | best=77.970
+2026-07-14 10:30:22,965 epoch 171 lr=0.00014 stage=3
+2026-07-14 10:31:44,256 Val: top1=77.730 top5=94.480
+2026-07-14 10:31:44,647 epoch 171 | top1=77.730 | best=77.970
+2026-07-14 10:31:44,648 epoch 172 lr=0.00014 stage=3
+2026-07-14 10:33:05,858 Val: top1=77.850 top5=94.260
+2026-07-14 10:33:06,250 epoch 172 | top1=77.850 | best=77.970
+2026-07-14 10:33:06,251 epoch 173 lr=0.00013 stage=3
+2026-07-14 10:34:27,540 Val: top1=77.600 top5=94.340
+2026-07-14 10:34:27,936 epoch 173 | top1=77.600 | best=77.970
+2026-07-14 10:34:27,937 epoch 174 lr=0.00013 stage=3
+2026-07-14 10:35:49,142 Val: top1=77.900 top5=94.530
+2026-07-14 10:35:49,531 epoch 174 | top1=77.900 | best=77.970
+2026-07-14 10:35:49,532 epoch 175 lr=0.00012 stage=3
+2026-07-14 10:37:10,798 Val: top1=77.870 top5=94.540
+2026-07-14 10:37:11,188 epoch 175 | top1=77.870 | best=77.970
+2026-07-14 10:37:11,189 epoch 176 lr=0.00011 stage=3
+2026-07-14 10:38:32,362 Val: top1=77.910 top5=94.520
+2026-07-14 10:38:32,754 epoch 176 | top1=77.910 | best=77.970
+2026-07-14 10:38:32,755 epoch 177 lr=0.00011 stage=3
+2026-07-14 10:39:54,026 Val: top1=77.590 top5=94.440
+2026-07-14 10:39:54,418 epoch 177 | top1=77.590 | best=77.970
+2026-07-14 10:39:54,419 epoch 178 lr=0.00010 stage=3
+2026-07-14 10:41:15,604 Val: top1=77.790 top5=94.560
+2026-07-14 10:41:16,016 epoch 178 | top1=77.790 | best=77.970
+2026-07-14 10:41:16,017 epoch 179 lr=0.00010 stage=3
+2026-07-14 10:42:37,193 Val: top1=77.970 top5=94.480
+2026-07-14 10:42:37,579 epoch 179 | top1=77.970 | best=77.970
+2026-07-14 10:42:37,580 epoch 180 lr=0.00009 stage=3
+2026-07-14 10:43:58,736 Val: top1=77.860 top5=94.280
+2026-07-14 10:43:59,125 epoch 180 | top1=77.860 | best=77.970
+2026-07-14 10:43:59,126 epoch 181 lr=0.00009 stage=3
+2026-07-14 10:45:20,389 Val: top1=77.880 top5=94.440
+2026-07-14 10:45:20,743 epoch 181 | top1=77.880 | best=77.970
+2026-07-14 10:45:20,744 epoch 182 lr=0.00008 stage=3
+2026-07-14 10:46:41,949 Val: top1=77.670 top5=94.450
+2026-07-14 10:46:42,339 epoch 182 | top1=77.670 | best=77.970
+2026-07-14 10:46:42,339 epoch 183 lr=0.00008 stage=3
+2026-07-14 10:48:03,589 Val: top1=77.940 top5=94.450
+2026-07-14 10:48:03,982 epoch 183 | top1=77.940 | best=77.970
+2026-07-14 10:48:03,983 epoch 184 lr=0.00007 stage=3
+2026-07-14 10:49:25,171 Val: top1=77.860 top5=94.540
+2026-07-14 10:49:25,581 epoch 184 | top1=77.860 | best=77.970
+2026-07-14 10:49:25,582 epoch 185 lr=0.00007 stage=3
+2026-07-14 10:50:46,825 Val: top1=78.000 top5=94.590
+2026-07-14 10:50:47,500 epoch 185 | top1=78.000 | best=78.000
+2026-07-14 10:50:47,501 epoch 186 lr=0.00006 stage=3
+2026-07-14 10:52:08,688 Val: top1=77.960 top5=94.400
+2026-07-14 10:52:09,080 epoch 186 | top1=77.960 | best=78.000
+2026-07-14 10:52:09,081 epoch 187 lr=0.00006 stage=3
+2026-07-14 10:53:30,400 Val: top1=78.240 top5=94.570
+2026-07-14 10:53:31,016 epoch 187 | top1=78.240 | best=78.240
+2026-07-14 10:53:31,017 epoch 188 lr=0.00006 stage=3
+2026-07-14 10:54:52,276 Val: top1=78.020 top5=94.430
+2026-07-14 10:54:52,664 epoch 188 | top1=78.020 | best=78.240
+2026-07-14 10:54:52,665 epoch 189 lr=0.00005 stage=3
+2026-07-14 10:56:13,855 Val: top1=78.060 top5=94.660
+2026-07-14 10:56:14,207 epoch 189 | top1=78.060 | best=78.240
+2026-07-14 10:56:14,207 epoch 190 lr=0.00005 stage=3
+2026-07-14 10:57:35,457 Val: top1=78.250 top5=94.680
+2026-07-14 10:57:36,121 epoch 190 | top1=78.250 | best=78.250
+2026-07-14 10:57:36,122 epoch 191 lr=0.00004 stage=3
+2026-07-14 10:58:57,318 Val: top1=78.190 top5=94.680
+2026-07-14 10:58:57,708 epoch 191 | top1=78.190 | best=78.250
+2026-07-14 10:58:57,709 epoch 192 lr=0.00004 stage=3
+2026-07-14 11:00:18,972 Val: top1=78.110 top5=94.590
+2026-07-14 11:00:19,325 epoch 192 | top1=78.110 | best=78.250
+2026-07-14 11:00:19,326 epoch 193 lr=0.00003 stage=3
+2026-07-14 11:01:40,521 Val: top1=78.280 top5=94.640
+2026-07-14 11:01:41,185 epoch 193 | top1=78.280 | best=78.280
+2026-07-14 11:01:41,186 epoch 194 lr=0.00003 stage=3
+2026-07-14 11:03:02,457 Val: top1=78.230 top5=94.650
+2026-07-14 11:03:02,836 epoch 194 | top1=78.230 | best=78.280
+2026-07-14 11:03:02,837 epoch 195 lr=0.00002 stage=3
+2026-07-14 11:04:24,048 Val: top1=78.160 top5=94.730
+2026-07-14 11:04:24,436 epoch 195 | top1=78.160 | best=78.280
+2026-07-14 11:04:24,437 epoch 196 lr=0.00002 stage=3
+2026-07-14 11:05:45,777 Val: top1=78.280 top5=94.750
+2026-07-14 11:05:46,134 epoch 196 | top1=78.280 | best=78.280
+2026-07-14 11:05:46,135 epoch 197 lr=0.00001 stage=3
+2026-07-14 11:07:07,398 Val: top1=78.140 top5=94.780
+2026-07-14 11:07:07,790 epoch 197 | top1=78.140 | best=78.280
+2026-07-14 11:07:07,791 epoch 198 lr=0.00001 stage=3
+2026-07-14 11:08:28,971 Val: top1=78.250 top5=94.690
+2026-07-14 11:08:29,326 epoch 198 | top1=78.250 | best=78.280
+2026-07-14 11:08:29,327 epoch 199 lr=0.00000 stage=3
+2026-07-14 11:09:50,598 Val: top1=78.100 top5=94.800
+2026-07-14 11:09:50,988 epoch 199 | top1=78.100 | best=78.280
+2026-07-14 11:09:50,988 done. best top1 = 78.280

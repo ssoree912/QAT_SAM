@@ -1,0 +1,166 @@
+2026-07-15 10:00:59,286 args = Namespace(method='lsq_sam', model='resnet18', n_bit=4, epochs=200, batch_size=128, learning_rate=0.001, weight_decay=0.0, qsam_ratio=0.01, sam_rho=0.05, bn_recal_batches=100, lambda_dampen=0.001, data='/workspace/AOQ-main/AO_QAT/data', save='./models', workers=4, seed=42, pretrained='')
+2026-07-15 10:00:59,286 method=lsq_sam | use_aoq=False | use_qsam=False | use_sam=True | stages: [0,40)->[40,120)->[120,200)
+2026-07-15 10:00:59,590 model:
+ResNet(
+  (conv1): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (maxpool): Identity()
+  (layer1): Sequential(
+    (0): BasicBlock(
+      (conv1): QuanConv2d(
+        64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): QuanConv2d(
+        64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (1): BasicBlock(
+      (conv1): QuanConv2d(
+        64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): QuanConv2d(
+        64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (layer2): Sequential(
+    (0): BasicBlock(
+      (conv1): QuanConv2d(
+        64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): QuanConv2d(
+        128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (downsample): Sequential(
+        (0): QuanConv2d(
+          64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False
+          (quan_w_fn): LSQ()
+          (quan_a_fn): LSQ()
+        )
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): QuanConv2d(
+        128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): QuanConv2d(
+        128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (layer3): Sequential(
+    (0): BasicBlock(
+      (conv1): QuanConv2d(
+        128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): QuanConv2d(
+        256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (downsample): Sequential(
+        (0): QuanConv2d(
+          128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False
+          (quan_w_fn): LSQ()
+          (quan_a_fn): LSQ()
+        )
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): QuanConv2d(
+        256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): QuanConv2d(
+        256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (layer4): Sequential(
+    (0): BasicBlock(
+      (conv1): QuanConv2d(
+        256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): QuanConv2d(
+        512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (downsample): Sequential(
+        (0): QuanConv2d(
+          256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False
+          (quan_w_fn): LSQ()
+          (quan_a_fn): LSQ()
+        )
+        (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): QuanConv2d(
+        512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): QuanConv2d(
+        512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False
+        (quan_w_fn): LSQ()
+        (quan_a_fn): LSQ()
+      )
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+  (fc): Linear(in_features=512, out_features=100, bias=True)
+)
+2026-07-15 10:00:59,591 qSAM: False | tracked modules: 0
+2026-07-15 10:00:59,600 S2-SAM: True | tracked params: 19 | rho=0.0500
+2026-07-15 10:00:59,600 weight params=20 | other params=80

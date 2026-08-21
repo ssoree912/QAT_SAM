@@ -1,0 +1,4 @@
+[05:31:46] download start
+[06:56:27] downloaded  bytes (target 169001437)
+[06:56:27] SIZE MISMATCH
+ls: cannot access 'data/cifar-100-python/': No such file or directory

@@ -1,0 +1,35 @@
+# --- Heavy checkpoints / model weights ---
+*.pth
+*.pt
+*.pth.tar
+*.tar
+*.ckpt
+*.safetensors
+
+# --- Datasets / large binary data ---
+*.npz
+*.npy
+*.gz
+*.tar.gz
+*.zip
+AO_QAT/data/
+AO_QAT/resnet_cifar100/data/
+cifar-10-batches-py/
+cifar-100-python/
+
+# --- Experiment output dirs (keep text logs, drop weights via patterns above) ---
+**/log/**/*.pth
+wandb/
+
+# --- Python caches ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# --- Tooling / editor / agent artifacts ---
+.codegraph/
+.claude/
+.DS_Store
+.vscode/
+.idea/
