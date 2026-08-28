@@ -27,12 +27,12 @@ from qsam_training import QsamTrainMode, TrainControls, TrainRuntime, train_one_
 
 
 def parse_args():
-    parser = argparse.ArgumentParser("Google ViT QViT CIFAR100/ImageNet")
+    parser = argparse.ArgumentParser("Google ViT QViT ImageNet/CIFAR100")
     parser.add_argument("--method", choices=sorted(METHOD_TO_TRAIN_MODE), default="qvit")
     parser.add_argument("--variant", choices=sorted(VARIANTS), default="B_32")
     parser.add_argument("--nbits", type=int, default=4)
-    parser.add_argument("--data-set", choices=["CIFAR100", "IMNET"], default="CIFAR100")
-    parser.add_argument("--data-path", default="/workspace/AOQ-main/AO_QAT/data")
+    parser.add_argument("--data-set", choices=["CIFAR100", "IMNET"], default="IMNET")
+    parser.add_argument("--data-path", default="/workspace/hd/data/ImageNet")
     parser.add_argument("--download", action="store_true", help="download CIFAR100 when data-set=CIFAR100")
     parser.add_argument("--input-size", type=int, default=224)
     parser.add_argument("--epochs", type=int, default=100)
