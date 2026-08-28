@@ -20,7 +20,7 @@ QSAM_WARMUP=${QSAM_WARMUP:-5}
 MODEL=${MODEL:-fourbits_deit_small_patch16_224}   # 4-bit DeiT-S; 2/3-bit: twobits_/threebits_
 CKPT=https://dl.fbaipublicfiles.com/deit/deit_small_patch16_224-cd65a155.pth
 
-# wandb is opt-in: WANDB=1 bash run.sh lsq   (needs `wandb login` first)
+# wandb is opt-in: WANDB=1 bash run.sh qvit   (needs `wandb login` first)
 WANDB_ARGS=""
 if [ "${WANDB:-0}" = "1" ]; then
   WANDB_ARGS="--wandb --wandb-project ${WANDB_PROJECT:-aoq-vit-qat}"
@@ -29,13 +29,13 @@ fi
 common="--model $MODEL --data-set CIFAR --data-path $DATA --input-size 224 \
   --batch-size $BS --epochs $EPOCHS --lr $LR --finetune $CKPT --num_workers 8 $WANDB_ARGS"
 
-case "${1:-lsq}" in
-  lsq)        # baseline: LSQ ViT QAT, no qSAM
+case "${1:-qvit}" in
+  qvit)        # baseline: QViT QAT, no qSAM
     CUDA_VISIBLE_DEVICES=$GPU python -u main.py $common \
-      --output_dir log/qvit_s_4bit_lsq ;;
-  lsq_qsam)   # + qSAM
+      --output_dir log/qvit_s_4bit ;;
+  qvit_qsam)   # + qSAM
     CUDA_VISIBLE_DEVICES=$GPU python -u main.py $common \
       --use-qsam --qsam-ratio $QSAM_RATIO --qsam-rho $QSAM_RHO --qsam-warmup-epochs $QSAM_WARMUP \
-      --output_dir log/qvit_s_4bit_lsq_qsam ;;
-  *) echo "usage: bash run.sh [lsq|lsq_qsam]"; exit 1 ;;
+      --output_dir log/qvit_s_4bit_qsam ;;
+  *) echo "usage: bash run.sh [qvit|qvit_qsam]"; exit 1 ;;
 esac

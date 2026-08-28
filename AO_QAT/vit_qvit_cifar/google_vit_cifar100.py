@@ -28,7 +28,7 @@ from qsam_training import QsamTrainMode, TrainControls, TrainRuntime, train_one_
 
 def parse_args():
     parser = argparse.ArgumentParser("Google ViT QViT CIFAR100/ImageNet")
-    parser.add_argument("--method", choices=sorted(METHOD_TO_TRAIN_MODE), default="qvit_lsq")
+    parser.add_argument("--method", choices=sorted(METHOD_TO_TRAIN_MODE), default="qvit")
     parser.add_argument("--variant", choices=sorted(VARIANTS), default="B_32")
     parser.add_argument("--nbits", type=int, default=4)
     parser.add_argument("--data-set", choices=["CIFAR100", "IMNET"], default="CIFAR100")
@@ -86,7 +86,7 @@ def main():
     use_qsam = train_mode in (QsamTrainMode.S2, QsamTrainMode.TWO_PASS)
     use_sam = train_mode is QsamTrainMode.SAM
     print(
-        f"[qat] method=QViT-LSQ nbits={args.nbits} "
+        f"[qat] method=QViT nbits={args.nbits} "
         f"qsam={use_qsam} sam={use_sam} loop={train_mode.value}"
     )
     resume_path = resolve_resume_path(args, output_dir)

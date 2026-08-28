@@ -76,10 +76,10 @@ VARIANTS: Final = {
 }
 
 METHOD_TO_TRAIN_MODE: Final = {
-    "qvit_lsq": QsamTrainMode.BASELINE,
-    "qvit_lsq_sam": QsamTrainMode.SAM,
-    "qvit_lsq_qsam": QsamTrainMode.S2,
-    "qvit_lsq_qsam_sam": QsamTrainMode.TWO_PASS,
+    "qvit": QsamTrainMode.BASELINE,
+    "qvit_sam": QsamTrainMode.SAM,
+    "qvit_qsam": QsamTrainMode.S2,
+    "qvit_qsam_twopass": QsamTrainMode.TWO_PASS,
 }
 
 

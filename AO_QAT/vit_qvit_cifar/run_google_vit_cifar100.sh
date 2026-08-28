@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-METHOD=${1:-qvit_lsq}
+METHOD=${1:-qvit}
 GPU=${GPU:-2}
 DATA=${DATA:-/workspace/AOQ-main/AO_QAT/data}
 VARIANT=${VARIANT:-B_32}
