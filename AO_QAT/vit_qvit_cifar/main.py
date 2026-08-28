@@ -141,15 +141,6 @@ def get_args_parser():
     # * Finetuning params
     parser.add_argument('--finetune', default='', help='finetune from checkpoint')
 
-    # * qSAM params (single-step quantized Sharpness-Aware Minimization)
-    parser.add_argument('--use-qsam', action='store_true',
-                        help='enable single-step qSAM weight perturbation during QAT')
-    parser.add_argument('--qsam-ratio', type=float, default=1e-3,
-                        help='fraction K/n of weights perturbed per layer per step')
-    parser.add_argument('--qsam-rho', type=float, default=1.0,
-                        help='qSAM perturbation step scale (<=1); 1 = one quant level shift')
-    parser.add_argument('--qsam-warmup-epochs', type=int, default=0,
-                        help='delay qSAM perturbation until this epoch (alpha/weights settle first)')
     parser.add_argument('--distilled', action='store_true',
                         help='use distilled DeiT (dist token + head). Default OFF for the clean '
                              'KD-off path (single head; avoids an untrained dist-head at eval)')
@@ -330,13 +321,6 @@ def main(args):
 
     model.to(device)
 
-    if args.use_qsam:
-        from qsam import enable_qsam
-        enabled = enable_qsam(model, args.qsam_ratio, args.qsam_rho,
-                              warmup_epochs=args.qsam_warmup_epochs)
-        print(f"[qSAM] enabled on {len(enabled)} quantized weight layers "
-              f"(ratio={args.qsam_ratio}, rho={args.qsam_rho}, warmup={args.qsam_warmup_epochs})")
-
     model_ema = None
     '''if args.model_ema:
         # Important to create EMA model after cuda(), DP wrapper, and AMP but before SyncBN and DDP wrapper
@@ -446,21 +430,14 @@ def main(args):
         if args.distributed:
             data_loader_train.sampler.set_epoch(epoch)
 
-        # qSAM warmup: gate the perturbation off until alpha/weights settle, then on.
-        if args.use_qsam and args.qsam_warmup_epochs > 0:
-            from qsam import set_qsam_on
-            set_qsam_on(model, epoch >= args.qsam_warmup_epochs)
-
         train_stats = train_one_epoch(
             model, teacher_model, criterion, data_loader_train,
             optimizer, device, epoch, loss_scaler,
             args.clip_grad, model_ema, mixup_fn,
-            # QAT MUST run in train mode: LSQ alpha first-forward init and the qSAM
-            # perturbation both gate on self.training. (Original Q-ViT set this to
-            # `args.finetune == ''`, i.e. eval mode when finetuning -> would leave alpha
-            # uninitialized and disable qSAM. See plan Gotcha 1.)
+            # QAT MUST run in train mode: quantizer alpha first-forward init gates on
+            # self.training. (Original Q-ViT set this to `args.finetune == ''`, i.e.
+            # eval mode when finetuning -> would leave alpha uninitialized.)
             set_training_mode=True,
-            use_qsam=args.use_qsam,
         )
 
         lr_scheduler.step(epoch)

@@ -13,7 +13,6 @@ from Quant import Conv2dQ, LinearQ
 class QsamTrainMode(Enum):
     BASELINE = "baseline"
     SAM = "sam"
-    S2 = "s2"
     TWO_PASS = "two_pass"
 
 
@@ -41,18 +40,13 @@ def train_one_epoch(
     trainers = {
         QsamTrainMode.BASELINE: _train_one_epoch_baseline,
         QsamTrainMode.SAM: _train_one_epoch_vanilla_sam,
-        QsamTrainMode.S2: _train_one_epoch_s2_qsam,
         QsamTrainMode.TWO_PASS: _train_one_epoch_two_pass_qsam,
     }
     return trainers[mode](runtime, controls)
 
 
 def _train_one_epoch_baseline(runtime: TrainRuntime, controls: TrainControls) -> Dict[str, float]:
-    return _train_one_epoch_single_pass(runtime, controls, save_s2_grads=False)
-
-
-def _train_one_epoch_s2_qsam(runtime: TrainRuntime, controls: TrainControls) -> Dict[str, float]:
-    return _train_one_epoch_single_pass(runtime, controls, save_s2_grads=True)
+    return _train_one_epoch_single_pass(runtime, controls)
 
 
 def _train_one_epoch_vanilla_sam(
@@ -102,7 +96,6 @@ def _train_one_epoch_vanilla_sam(
 def _train_one_epoch_single_pass(
     runtime: TrainRuntime,
     controls: TrainControls,
-    save_s2_grads: bool,
 ) -> Dict[str, float]:
     runtime.model.train()
     total_loss = 0.0
@@ -118,8 +111,6 @@ def _train_one_epoch_single_pass(
         loss = runtime.criterion(outputs, targets)
         loss.backward()
         runtime.optimizer.step()
-        if save_s2_grads:
-            _save_qsam_grads(runtime.model)
         acc1 = accuracy(outputs, targets, topk=(1,))[0]
         batch_size = images.shape[0]
         total_loss += loss.item() * batch_size

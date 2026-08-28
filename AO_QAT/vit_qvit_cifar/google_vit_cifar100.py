@@ -83,7 +83,7 @@ def main():
         wandb.init(project=args.wandb_project, entity=args.wandb_entity, name=run_name, config=vars(args))
     print(f"[google-vit] source repo: {repo_root / 'third_party' / 'vision_transformer'}")
     train_mode = METHOD_TO_TRAIN_MODE[args.method]
-    use_qsam = train_mode in (QsamTrainMode.S2, QsamTrainMode.TWO_PASS)
+    use_qsam = train_mode is QsamTrainMode.TWO_PASS
     use_sam = train_mode is QsamTrainMode.SAM
     print(
         f"[qat] method=QViT nbits={args.nbits} "

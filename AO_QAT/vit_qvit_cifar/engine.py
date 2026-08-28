@@ -20,7 +20,7 @@ def train_one_epoch(model: torch.nn.Module, teacher_model: torch.nn.Module, crit
                     data_loader: Iterable, optimizer: torch.optim.Optimizer,
                     device: torch.device, epoch: int, loss_scaler, max_norm: float = 0,
                     model_ema: Optional[ModelEma] = None, mixup_fn: Optional[Mixup] = None,
-                    set_training_mode=True, use_qsam=False):
+                    set_training_mode=True):
     model.train(set_training_mode)
     if teacher_model is not None:   # KD-off: no teacher
         teacher_model.eval()
@@ -49,13 +49,6 @@ def train_one_epoch(model: torch.nn.Module, teacher_model: torch.nn.Module, crit
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-
-        # qSAM (single-step S2-SAM): snapshot this step's weight grads as g_prev for the
-        # *next* step's perturbation. No 2nd forward/backward. Must run AFTER optimizer.step().
-        if use_qsam:
-            for m in model.modules():
-                if hasattr(m, "save_grad_for_qsam"):
-                    m.save_grad_for_qsam()
 
         # this attribute is added by timm on one optimizer (adahessian)
         # is_second_order = hasattr(optimizer, 'is_second_order') and optimizer.is_second_order

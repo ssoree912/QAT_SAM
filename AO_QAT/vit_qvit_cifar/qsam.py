@@ -8,8 +8,7 @@ matches the initialized weights.
 
 Contract (mirrors AO_QAT/quan/func.py + resnet_cifar100/train.py):
   - forward: w_q = w_q + rho * alpha * sign(g_prev) * mask   (top-K |g_prev|, dequantized domain)
-  - S2 loop: after optimizer.step(), call save_grad_for_qsam() for the next step.
-  - 2-pass loop: call save_grad_for_qsam() after the first backward, then forward again.
+  - 2-pass loop: call save_grad_for_qsam() after the clean backward, then forward again.
 """
 import torch
 
