@@ -1,303 +1,0 @@
-Namespace(method='qvit_lsq', variant='B_32', nbits=4, data_path='/workspace/AOQ-main/AO_QAT/data', download=False, input_size=224, epochs=100, batch_size=64, workers=8, lr=0.0005, min_lr=1e-05, weight_decay=0.05, device='cuda', seed=42, output_dir='/workspace/AOQ-main/runs/google_vit_cifar100_qvit_lsq_20260715_115938', finetune='auto', no_finetune=False, qsam_ratio=0.001, qsam_rho=1.0, qsam_warmup_epochs=2, debug_train_batches=0, debug_val_batches=0, print_freq=20)
-[google-vit] source repo: /workspace/AOQ-main/third_party/vision_transformer
-[qat] method=QViT-LSQ nbits=4 qsam=False
-Downloading: "https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-vitjx/jx_vit_base_patch32_224_in21k-8db57226.pth" to /root/.cache/torch/hub/checkpoints/jx_vit_base_patch32_224_in21k-8db57226.pth
-  0%|          | 0.00/400M [00:00<?, ?B/s]  0%|          | 128k/400M [00:00<12:04, 579kB/s]  0%|          | 256k/400M [00:00<09:48, 713kB/s]  0%|          | 640k/400M [00:00<05:11, 1.34MB/s]  0%|          | 1.12M/400M [00:00<03:20, 2.08MB/s]  1%|          | 2.12M/400M [00:00<01:42, 4.08MB/s]  1%|          | 2.75M/400M [00:00<01:28, 4.70MB/s]  1%|          | 4.88M/400M [00:01<00:50, 8.17MB/s]  2%|▏         | 7.25M/400M [00:01<00:33, 12.2MB/s]  2%|▏         | 9.62M/400M [00:01<00:26, 15.3MB/s]  3%|▎         | 11.2M/400M [00:02<01:13, 5.51MB/s]  3%|▎         | 12.5M/400M [00:02<01:08, 5.89MB/s]  3%|▎         | 13.6M/400M [00:02<01:00, 6.66MB/s]  4%|▍         | 15.4M/400M [00:02<00:47, 8.49MB/s]  4%|▍         | 17.6M/400M [00:02<00:35, 11.2MB/s]  5%|▌         | 20.0M/400M [00:02<00:28, 14.0MB/s]  5%|▌         | 21.9M/400M [00:02<00:38, 10.3MB/s]  6%|▌         | 24.2M/400M [00:03<00:30, 12.8MB/s]  7%|▋         | 26.6M/400M [00:03<00:25, 15.1MB/s]  7%|▋         | 29.0M/400M [00:03<00:22, 17.1MB/s]  8%|▊         | 31.0M/400M [00:03<00:29, 13.1MB/s]  8%|▊         | 33.2M/400M [00:03<00:32, 12.0MB/s]  9%|▊         | 34.8M/400M [00:04<00:36, 10.6MB/s]  9%|▉         | 37.1M/400M [00:04<00:29, 13.1MB/s] 10%|▉         | 38.8M/400M [00:04<00:27, 13.7MB/s] 10%|█         | 40.4M/400M [00:04<00:38, 9.68MB/s] 10%|█         | 41.6M/400M [00:04<00:41, 9.10MB/s] 11%|█         | 42.8M/400M [00:04<00:41, 8.99MB/s] 11%|█         | 44.5M/400M [00:04<00:34, 10.7MB/s] 12%|█▏        | 46.1M/400M [00:05<00:30, 12.0MB/s] 12%|█▏        | 48.5M/400M [00:05<00:24, 14.9MB/s] 13%|█▎        | 50.1M/400M [00:05<00:30, 12.2MB/s] 13%|█▎        | 52.1M/400M [00:05<00:30, 12.0MB/s] 14%|█▎        | 54.5M/400M [00:05<00:24, 14.6MB/s] 14%|█▍        | 56.8M/400M [00:05<00:21, 16.5MB/s] 15%|█▍        | 59.1M/400M [00:05<00:19, 18.4MB/s] 15%|█▌        | 61.1M/400M [00:07<01:14, 4.77MB/s] 16%|█▌        | 62.6M/400M [00:07<01:10, 5.01MB/s] 16%|█▌        | 64.6M/400M [00:07<00:53, 6.52MB/s] 17%|█▋        | 66.1M/400M [00:07<00:46, 7.46MB/s] 17%|█▋        | 68.6M/400M [00:07<00:34, 10.1MB/s] 18%|█▊        | 70.4M/400M [00:08<00:40, 8.58MB/s] 18%|█▊        | 72.6M/400M [00:08<00:31, 10.9MB/s] 19%|█▊        | 74.9M/400M [00:08<00:26, 13.1MB/s] 19%|█▉        | 77.2M/400M [00:08<00:22, 15.4MB/s] 20%|█▉        | 79.6M/400M [00:08<00:19, 17.3MB/s] 20%|██        | 81.8M/400M [00:08<00:26, 12.7MB/s] 21%|██        | 84.2M/400M [00:08<00:21, 15.2MB/s] 22%|██▏       | 86.1M/400M [00:09<00:30, 10.8MB/s] 22%|██▏       | 88.5M/400M [00:09<00:25, 13.0MB/s] 23%|██▎       | 90.2M/400M [00:09<00:28, 11.3MB/s] 23%|██▎       | 91.8M/400M [00:09<00:42, 7.66MB/s] 23%|██▎       | 92.9M/400M [00:10<00:44, 7.30MB/s] 24%|██▎       | 94.2M/400M [00:10<00:40, 7.93MB/s] 24%|██▍       | 95.9M/400M [00:10<00:33, 9.43MB/s] 25%|██▍       | 98.1M/400M [00:10<00:26, 12.1MB/s] 25%|██▌       | 100M/400M [00:10<00:31, 9.94MB/s]  25%|██▌       | 102M/400M [00:10<00:31, 10.1MB/s] 26%|██▌       | 104M/400M [00:10<00:24, 12.7MB/s] 26%|██▋       | 106M/400M [00:11<00:23, 12.9MB/s] 27%|██▋       | 108M/400M [00:11<00:20, 15.2MB/s] 28%|██▊       | 110M/400M [00:11<00:28, 10.8MB/s] 28%|██▊       | 112M/400M [00:11<00:23, 13.1MB/s] 29%|██▊       | 115M/400M [00:11<00:19, 15.2MB/s] 29%|██▉       | 117M/400M [00:11<00:17, 17.1MB/s] 30%|██▉       | 119M/400M [00:11<00:16, 17.5MB/s] 30%|███       | 121M/400M [00:12<00:28, 10.3MB/s] 31%|███       | 122M/400M [00:12<00:31, 9.32MB/s] 31%|███       | 124M/400M [00:12<00:30, 9.51MB/s] 31%|███▏      | 126M/400M [00:12<00:24, 11.5MB/s] 32%|███▏      | 128M/400M [00:12<00:20, 13.9MB/s] 33%|███▎      | 130M/400M [00:13<00:24, 11.7MB/s] 33%|███▎      | 133M/400M [00:13<00:19, 14.3MB/s] 34%|███▎      | 135M/400M [00:13<00:17, 16.3MB/s] 34%|███▍      | 137M/400M [00:13<00:15, 18.1MB/s] 35%|███▍      | 140M/400M [00:13<00:13, 19.5MB/s] 35%|███▌      | 142M/400M [00:14<00:34, 7.78MB/s] 36%|███▌      | 143M/400M [00:14<00:33, 7.98MB/s] 36%|███▋      | 145M/400M [00:14<00:28, 9.49MB/s] 37%|███▋      | 147M/400M [00:14<00:25, 10.5MB/s] 37%|███▋      | 149M/400M [00:14<00:20, 12.8MB/s] 38%|███▊      | 151M/400M [00:15<00:28, 9.26MB/s] 38%|███▊      | 153M/400M [00:15<00:21, 11.8MB/s] 39%|███▉      | 156M/400M [00:15<00:18, 14.2MB/s] 39%|███▉      | 158M/400M [00:15<00:15, 16.3MB/s] 40%|████      | 160M/400M [00:15<00:20, 12.3MB/s] 40%|████      | 162M/400M [00:16<00:24, 10.3MB/s] 41%|████      | 163M/400M [00:16<00:24, 10.3MB/s] 41%|████      | 165M/400M [00:16<00:21, 11.5MB/s] 42%|████▏     | 166M/400M [00:16<00:19, 12.9MB/s] 42%|████▏     | 168M/400M [00:16<00:17, 14.1MB/s] 43%|████▎     | 170M/400M [00:16<00:25, 9.46MB/s] 43%|████▎     | 171M/400M [00:17<00:28, 8.37MB/s] 43%|████▎     | 172M/400M [00:17<00:29, 8.01MB/s] 44%|████▎     | 174M/400M [00:17<00:25, 9.32MB/s] 44%|████▍     | 176M/400M [00:17<00:21, 11.0MB/s] 44%|████▍     | 177M/400M [00:17<00:19, 12.2MB/s] 45%|████▍     | 179M/400M [00:17<00:17, 13.3MB/s] 45%|████▌     | 180M/400M [00:18<00:59, 3.85MB/s] 45%|████▌     | 182M/400M [00:19<00:59, 3.84MB/s] 46%|████▌     | 182M/400M [00:19<00:53, 4.24MB/s] 46%|████▌     | 184M/400M [00:19<00:37, 6.08MB/s] 46%|████▋     | 186M/400M [00:19<00:31, 7.08MB/s] 47%|████▋     | 188M/400M [00:19<00:22, 10.1MB/s] 48%|████▊     | 190M/400M [00:19<00:23, 9.56MB/s] 48%|████▊     | 192M/400M [00:19<00:17, 12.2MB/s] 49%|████▊     | 195M/400M [00:19<00:14, 14.7MB/s] 49%|████▉     | 197M/400M [00:20<00:12, 16.8MB/s] 50%|████▉     | 200M/400M [00:20<00:11, 18.6MB/s] 50%|█████     | 202M/400M [00:20<00:23, 8.80MB/s] 51%|█████     | 204M/400M [00:20<00:18, 10.9MB/s] 52%|█████▏    | 206M/400M [00:20<00:15, 13.1MB/s] 52%|█████▏    | 209M/400M [00:21<00:13, 15.2MB/s] 53%|█████▎    | 211M/400M [00:21<00:17, 11.6MB/s] 53%|█████▎    | 213M/400M [00:21<00:14, 13.7MB/s] 54%|█████▍    | 216M/400M [00:21<00:12, 15.8MB/s] 55%|█████▍    | 218M/400M [00:21<00:10, 17.8MB/s] 55%|█████▌    | 220M/400M [00:22<00:14, 12.8MB/s] 56%|█████▌    | 223M/400M [00:22<00:12, 15.1MB/s] 56%|█████▋    | 225M/400M [00:22<00:10, 17.3MB/s] 57%|█████▋    | 228M/400M [00:22<00:09, 19.1MB/s] 58%|█████▊    | 230M/400M [00:22<00:12, 14.1MB/s] 58%|█████▊    | 232M/400M [00:22<00:13, 13.4MB/s] 59%|█████▊    | 234M/400M [00:22<00:11, 15.1MB/s] 59%|█████▉    | 236M/400M [00:23<00:10, 16.2MB/s] 60%|█████▉    | 239M/400M [00:23<00:09, 18.1MB/s] 60%|██████    | 241M/400M [00:23<00:14, 11.8MB/s] 61%|██████    | 243M/400M [00:23<00:11, 14.1MB/s] 61%|██████▏   | 245M/400M [00:23<00:10, 16.1MB/s] 62%|██████▏   | 248M/400M [00:23<00:08, 17.9MB/s] 63%|██████▎   | 250M/400M [00:24<00:16, 9.42MB/s] 63%|██████▎   | 252M/400M [00:24<00:24, 6.33MB/s] 63%|██████▎   | 253M/400M [00:25<00:22, 6.72MB/s] 64%|██████▎   | 255M/400M [00:25<00:19, 7.85MB/s] 64%|██████▍   | 257M/400M [00:25<00:14, 10.4MB/s] 65%|██████▍   | 260M/400M [00:25<00:11, 12.8MB/s] 65%|██████▌   | 261M/400M [00:25<00:14, 9.80MB/s] 66%|██████▌   | 264M/400M [00:25<00:11, 12.4MB/s] 67%|██████▋   | 266M/400M [00:25<00:09, 15.0MB/s] 67%|██████▋   | 269M/400M [00:25<00:08, 17.0MB/s] 68%|██████▊   | 271M/400M [00:26<00:11, 11.5MB/s] 68%|██████▊   | 274M/400M [00:26<00:09, 14.5MB/s] 69%|██████▉   | 276M/400M [00:26<00:07, 16.7MB/s] 70%|██████▉   | 278M/400M [00:26<00:06, 18.5MB/s] 70%|███████   | 281M/400M [00:27<00:10, 11.4MB/s] 71%|███████   | 282M/400M [00:27<00:17, 7.00MB/s] 71%|███████   | 284M/400M [00:27<00:16, 7.44MB/s] 71%|███████▏  | 285M/400M [00:27<00:14, 8.56MB/s] 72%|███████▏  | 287M/400M [00:27<00:11, 10.7MB/s] 72%|███████▏  | 290M/400M [00:28<00:08, 13.3MB/s] 73%|███████▎  | 292M/400M [00:28<00:11, 9.98MB/s] 74%|███████▎  | 294M/400M [00:28<00:08, 12.7MB/s] 74%|███████▍  | 296M/400M [00:28<00:07, 15.2MB/s] 75%|███████▍  | 299M/400M [00:28<00:06, 17.2MB/s] 75%|███████▌  | 301M/400M [00:29<00:08, 12.0MB/s] 76%|███████▌  | 303M/400M [00:29<00:07, 14.2MB/s] 76%|███████▋  | 306M/400M [00:29<00:06, 16.2MB/s] 77%|███████▋  | 308M/400M [00:29<00:05, 18.0MB/s] 78%|███████▊  | 310M/400M [00:29<00:07, 12.1MB/s] 78%|███████▊  | 312M/400M [00:29<00:06, 14.1MB/s] 79%|███████▊  | 315M/400M [00:29<00:05, 16.2MB/s] 79%|███████▉  | 317M/400M [00:29<00:04, 18.2MB/s] 80%|███████▉  | 320M/400M [00:30<00:04, 19.8MB/s] 81%|████████  | 322M/400M [00:30<00:05, 13.9MB/s] 81%|████████  | 324M/400M [00:30<00:04, 16.1MB/s] 82%|████████▏ | 327M/400M [00:30<00:04, 17.9MB/s] 82%|████████▏ | 329M/400M [00:30<00:03, 19.4MB/s] 83%|████████▎ | 331M/400M [00:31<00:06, 11.9MB/s] 83%|████████▎ | 333M/400M [00:31<00:08, 8.45MB/s] 84%|████████▍ | 335M/400M [00:31<00:07, 9.34MB/s] 84%|████████▍ | 337M/400M [00:31<00:05, 11.6MB/s] 85%|████████▍ | 340M/400M [00:31<00:04, 13.9MB/s] 85%|████████▌ | 342M/400M [00:32<00:05, 11.0MB/s] 86%|████████▌ | 343M/400M [00:32<00:05, 10.4MB/s] 86%|████████▌ | 344M/400M [00:32<00:05, 10.7MB/s] 87%|████████▋ | 347M/400M [00:32<00:04, 13.5MB/s] 87%|████████▋ | 349M/400M [00:32<00:03, 15.9MB/s] 88%|████████▊ | 351M/400M [00:33<00:07, 6.98MB/s] 88%|████████▊ | 352M/400M [00:33<00:07, 6.78MB/s] 88%|████████▊ | 354M/400M [00:33<00:06, 7.41MB/s] 89%|████████▉ | 355M/400M [00:33<00:05, 9.06MB/s] 89%|████████▉ | 358M/400M [00:33<00:03, 11.6MB/s] 90%|████████▉ | 360M/400M [00:33<00:02, 14.2MB/s] 90%|█████████ | 362M/400M [00:34<00:03, 10.5MB/s] 91%|█████████ | 363M/400M [00:34<00:03, 10.5MB/s] 91%|█████████ | 365M/400M [00:34<00:03, 11.2MB/s] 92%|█████████▏| 367M/400M [00:34<00:02, 13.9MB/s] 92%|█████████▏| 369M/400M [00:34<00:01, 16.1MB/s] 93%|█████████▎| 371M/400M [00:35<00:06, 4.44MB/s] 93%|█████████▎| 372M/400M [00:36<00:05, 4.91MB/s] 94%|█████████▎| 374M/400M [00:36<00:04, 6.40MB/s] 94%|█████████▍| 376M/400M [00:36<00:03, 7.31MB/s] 95%|█████████▍| 378M/400M [00:36<00:02, 9.90MB/s] 95%|█████████▌| 380M/400M [00:36<00:02, 9.32MB/s] 96%|█████████▌| 382M/400M [00:36<00:01, 11.8MB/s] 96%|█████████▌| 384M/400M [00:36<00:01, 12.6MB/s] 97%|█████████▋| 386M/400M [00:37<00:01, 13.2MB/s] 97%|█████████▋| 389M/400M [00:37<00:00, 15.5MB/s] 98%|█████████▊| 390M/400M [00:38<00:02, 4.85MB/s] 98%|█████████▊| 392M/400M [00:38<00:01, 4.62MB/s] 98%|█████████▊| 393M/400M [00:38<00:01, 5.09MB/s] 99%|█████████▊| 395M/400M [00:38<00:00, 6.53MB/s] 99%|█████████▉| 397M/400M [00:39<00:00, 8.82MB/s]100%|█████████▉| 400M/400M [00:39<00:00, 11.3MB/s]100%|██████████| 400M/400M [00:39<00:00, 10.7MB/s]
-[finetune] init from https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-vitjx/jx_vit_base_patch32_224_in21k-8db57226.pth
-[finetune] missing (542): ['patch_embed.proj.alpha', 'patch_embed.proj.init_state', 'patch_embed.proj.act.alpha', 'patch_embed.proj.act.zero_point', 'patch_embed.proj.act.init_state', 'patch_embed.proj.act.signed', 'blocks.0.attn.norm_q.weight', 'blocks.0.attn.norm_q.bias', 'blocks.0.attn.norm_k.weight', 'blocks.0.attn.norm_k.bias', 'blocks.0.attn.qkv.alpha', 'blocks.0.attn.qkv.init_state']
-[finetune] unexpected (2): ['pre_logits.fc.bias', 'pre_logits.fc.weight']
-train step=0 loss=4.5872 acc1=0.00
-train step=20 loss=4.6247 acc1=0.00
-train step=40 loss=4.5645 acc1=1.56
-train step=60 loss=4.5667 acc1=1.56
-train step=80 loss=4.4878 acc1=3.12
-train step=100 loss=4.3539 acc1=1.56
-train step=120 loss=4.4670 acc1=4.69
-train step=140 loss=4.2376 acc1=6.25
-train step=160 loss=4.5185 acc1=3.12
-train step=180 loss=4.3603 acc1=4.69
-train step=200 loss=4.3127 acc1=6.25
-train step=220 loss=4.4463 acc1=7.81
-train step=240 loss=4.2832 acc1=10.94
-train step=260 loss=4.2769 acc1=6.25
-train step=280 loss=4.3668 acc1=6.25
-train step=300 loss=4.2928 acc1=4.69
-train step=320 loss=4.1613 acc1=3.12
-train step=340 loss=4.0771 acc1=10.94
-train step=360 loss=4.1763 acc1=9.38
-train step=380 loss=4.0750 acc1=3.12
-train step=400 loss=4.2883 acc1=6.25
-train step=420 loss=4.1878 acc1=1.56
-train step=440 loss=4.1759 acc1=3.12
-train step=460 loss=4.2621 acc1=7.81
-train step=480 loss=4.1791 acc1=7.81
-train step=500 loss=4.1510 acc1=3.12
-train step=520 loss=4.0731 acc1=9.38
-train step=540 loss=4.0904 acc1=7.81
-train step=560 loss=4.0460 acc1=9.38
-train step=580 loss=4.1650 acc1=9.38
-train step=600 loss=4.2208 acc1=3.12
-train step=620 loss=4.4071 acc1=3.12
-train step=640 loss=4.0179 acc1=9.38
-train step=660 loss=4.2399 acc1=6.25
-train step=680 loss=3.8070 acc1=15.62
-train step=700 loss=4.0771 acc1=6.25
-train step=720 loss=4.0860 acc1=7.81
-train step=740 loss=4.0625 acc1=9.38
-train step=760 loss=4.0004 acc1=12.50
-train step=780 loss=4.1068 acc1=3.12
-epoch=0 train_acc1=6.072 val_acc1=15.710 val_acc5=41.470 best=15.710
-train step=0 loss=4.1027 acc1=6.25
-train step=20 loss=3.9925 acc1=15.62
-train step=40 loss=3.9983 acc1=12.50
-train step=60 loss=3.9430 acc1=14.06
-train step=80 loss=4.0862 acc1=12.50
-train step=100 loss=3.8510 acc1=12.50
-train step=120 loss=3.7621 acc1=12.50
-train step=140 loss=4.0019 acc1=7.81
-train step=160 loss=3.7265 acc1=12.50
-train step=180 loss=3.9316 acc1=14.06
-train step=200 loss=3.8621 acc1=10.94
-train step=220 loss=4.0363 acc1=10.94
-train step=240 loss=3.9121 acc1=12.50
-train step=260 loss=3.8850 acc1=6.25
-train step=280 loss=4.0236 acc1=6.25
-train step=300 loss=3.8423 acc1=12.50
-train step=320 loss=3.8654 acc1=12.50
-train step=340 loss=3.8269 acc1=12.50
-train step=360 loss=3.7423 acc1=9.38
-train step=380 loss=3.5837 acc1=12.50
-train step=400 loss=4.0629 acc1=4.69
-train step=420 loss=3.6959 acc1=17.19
-train step=440 loss=3.8919 acc1=10.94
-train step=460 loss=3.7660 acc1=7.81
-train step=480 loss=3.7444 acc1=15.62
-train step=500 loss=3.6720 acc1=17.19
-train step=520 loss=3.7849 acc1=12.50
-train step=540 loss=3.7838 acc1=15.62
-train step=560 loss=3.6313 acc1=15.62
-train step=580 loss=3.5464 acc1=20.31
-train step=600 loss=3.8460 acc1=14.06
-train step=620 loss=3.7629 acc1=12.50
-train step=640 loss=3.9493 acc1=18.75
-train step=660 loss=3.6064 acc1=12.50
-train step=680 loss=3.9133 acc1=17.19
-train step=700 loss=3.6757 acc1=15.62
-train step=720 loss=3.4108 acc1=20.31
-train step=740 loss=3.5574 acc1=12.50
-train step=760 loss=3.5632 acc1=14.06
-train step=780 loss=3.9031 acc1=10.94
-epoch=1 train_acc1=11.650 val_acc1=22.220 val_acc5=51.140 best=22.220
-train step=0 loss=3.6502 acc1=10.94
-train step=20 loss=3.9621 acc1=7.81
-train step=40 loss=3.6521 acc1=12.50
-train step=60 loss=3.6486 acc1=18.75
-train step=80 loss=3.5699 acc1=15.62
-train step=100 loss=4.2249 acc1=6.25
-train step=120 loss=3.7782 acc1=9.38
-train step=140 loss=3.9317 acc1=10.94
-train step=160 loss=3.5247 acc1=20.31
-train step=180 loss=3.8280 acc1=18.75
-train step=200 loss=3.8000 acc1=14.06
-train step=220 loss=3.6737 acc1=12.50
-train step=240 loss=3.6819 acc1=15.62
-train step=260 loss=3.7094 acc1=12.50
-train step=280 loss=3.7280 acc1=10.94
-train step=300 loss=3.4548 acc1=15.62
-train step=320 loss=3.7710 acc1=7.81
-train step=340 loss=3.8006 acc1=12.50
-train step=360 loss=3.7629 acc1=10.94
-train step=380 loss=3.8059 acc1=14.06
-train step=400 loss=3.6991 acc1=12.50
-train step=420 loss=3.5734 acc1=9.38
-train step=440 loss=3.6142 acc1=12.50
-train step=460 loss=3.5618 acc1=10.94
-train step=480 loss=3.7327 acc1=15.62
-train step=500 loss=3.5363 acc1=17.19
-train step=520 loss=3.7444 acc1=12.50
-train step=540 loss=3.6978 acc1=15.62
-train step=560 loss=3.4403 acc1=14.06
-train step=580 loss=3.5393 acc1=9.38
-train step=600 loss=3.5969 acc1=20.31
-train step=620 loss=3.6755 acc1=15.62
-train step=640 loss=3.7243 acc1=14.06
-train step=660 loss=3.4005 acc1=14.06
-train step=680 loss=3.7250 acc1=10.94
-train step=700 loss=3.3814 acc1=18.75
-train step=720 loss=3.2613 acc1=21.88
-train step=740 loss=3.5822 acc1=17.19
-train step=760 loss=3.4549 acc1=17.19
-train step=780 loss=3.6252 acc1=14.06
-epoch=2 train_acc1=15.011 val_acc1=26.920 val_acc5=56.720 best=26.920
-train step=0 loss=3.4235 acc1=15.62
-train step=20 loss=3.7644 acc1=12.50
-train step=40 loss=3.6971 acc1=12.50
-train step=60 loss=3.5604 acc1=6.25
-train step=80 loss=3.6291 acc1=12.50
-train step=100 loss=3.1714 acc1=26.56
-train step=120 loss=3.6854 acc1=12.50
-train step=140 loss=3.9803 acc1=12.50
-train step=160 loss=3.3951 acc1=21.88
-train step=180 loss=3.4024 acc1=17.19
-train step=200 loss=3.2499 acc1=21.88
-train step=220 loss=3.5169 acc1=18.75
-train step=240 loss=3.5919 acc1=17.19
-train step=260 loss=3.9517 acc1=15.62
-train step=280 loss=3.9427 acc1=10.94
-train step=300 loss=3.2978 acc1=28.12
-train step=320 loss=3.7673 acc1=14.06
-train step=340 loss=3.3795 acc1=18.75
-train step=360 loss=3.3197 acc1=17.19
-train step=380 loss=3.9401 acc1=12.50
-train step=400 loss=3.5116 acc1=14.06
-train step=420 loss=3.5186 acc1=18.75
-train step=440 loss=3.3829 acc1=17.19
-train step=460 loss=3.6426 acc1=15.62
-train step=480 loss=3.2964 acc1=26.56
-train step=500 loss=3.2336 acc1=21.88
-train step=520 loss=3.6611 acc1=14.06
-train step=540 loss=3.3681 acc1=21.88
-train step=560 loss=3.5244 acc1=25.00
-train step=580 loss=3.3594 acc1=10.94
-train step=600 loss=3.5795 acc1=17.19
-train step=620 loss=3.2177 acc1=18.75
-train step=640 loss=3.5913 acc1=15.62
-train step=660 loss=3.3864 acc1=15.62
-train step=680 loss=3.4256 acc1=15.62
-train step=700 loss=3.4753 acc1=20.31
-train step=720 loss=3.5777 acc1=21.88
-train step=740 loss=3.3327 acc1=23.44
-train step=760 loss=3.4033 acc1=23.44
-train step=780 loss=3.4735 acc1=10.94
-epoch=3 train_acc1=17.334 val_acc1=30.300 val_acc5=62.000 best=30.300
-train step=0 loss=3.4500 acc1=20.31
-train step=20 loss=3.3298 acc1=21.88
-train step=40 loss=3.3619 acc1=17.19
-train step=60 loss=3.4354 acc1=17.19
-train step=80 loss=3.2702 acc1=25.00
-train step=100 loss=3.5192 acc1=18.75
-train step=120 loss=3.2528 acc1=21.88
-train step=140 loss=3.5689 acc1=15.62
-train step=160 loss=3.2636 acc1=20.31
-train step=180 loss=3.6691 acc1=21.88
-train step=200 loss=3.3609 acc1=10.94
-train step=220 loss=3.5819 acc1=14.06
-train step=240 loss=3.6272 acc1=12.50
-train step=260 loss=3.3074 acc1=18.75
-train step=280 loss=3.3831 acc1=25.00
-train step=300 loss=3.3116 acc1=20.31
-train step=320 loss=3.4854 acc1=18.75
-train step=340 loss=3.4543 acc1=23.44
-train step=360 loss=3.4030 acc1=21.88
-train step=380 loss=3.3738 acc1=20.31
-train step=400 loss=3.1979 acc1=23.44
-train step=420 loss=3.5007 acc1=14.06
-train step=440 loss=3.7028 acc1=7.81
-train step=460 loss=3.2898 acc1=18.75
-train step=480 loss=3.4600 acc1=18.75
-train step=500 loss=3.4365 acc1=20.31
-train step=520 loss=3.2897 acc1=20.31
-train step=540 loss=3.4437 acc1=18.75
-train step=560 loss=3.5720 acc1=20.31
-train step=580 loss=3.6077 acc1=14.06
-train step=600 loss=3.3987 acc1=15.62
-train step=620 loss=3.3994 acc1=21.88
-train step=640 loss=3.0332 acc1=31.25
-train step=660 loss=3.1788 acc1=28.12
-train step=680 loss=3.5580 acc1=17.19
-train step=700 loss=3.5644 acc1=21.88
-train step=720 loss=3.3249 acc1=14.06
-train step=740 loss=3.6138 acc1=15.62
-train step=760 loss=3.5683 acc1=15.62
-train step=780 loss=3.0165 acc1=23.44
-epoch=4 train_acc1=19.392 val_acc1=33.260 val_acc5=64.990 best=33.260
-train step=0 loss=3.2529 acc1=25.00
-train step=20 loss=3.2295 acc1=20.31
-train step=40 loss=3.1987 acc1=17.19
-train step=60 loss=3.4968 acc1=14.06
-train step=80 loss=3.0052 acc1=31.25
-train step=100 loss=3.4999 acc1=15.62
-train step=120 loss=3.5520 acc1=10.94
-train step=140 loss=3.2183 acc1=25.00
-train step=160 loss=3.3085 acc1=18.75
-train step=180 loss=3.4861 acc1=15.62
-train step=200 loss=3.5570 acc1=20.31
-train step=220 loss=3.1878 acc1=20.31
-train step=240 loss=3.2833 acc1=25.00
-train step=260 loss=3.4218 acc1=17.19
-train step=280 loss=2.8817 acc1=29.69
-train step=300 loss=3.2437 acc1=18.75
-train step=320 loss=3.5963 acc1=17.19
-train step=340 loss=2.6829 acc1=29.69
-train step=360 loss=3.2601 acc1=21.88
-train step=380 loss=3.5568 acc1=17.19
-train step=400 loss=3.3081 acc1=12.50
-train step=420 loss=3.3846 acc1=20.31
-train step=440 loss=3.2209 acc1=25.00
-train step=460 loss=3.1019 acc1=21.88
-train step=480 loss=3.2229 acc1=23.44
-train step=500 loss=3.5046 acc1=23.44
-train step=520 loss=3.1203 acc1=21.88
-train step=540 loss=3.3263 acc1=21.88
-train step=560 loss=3.2144 acc1=18.75
-train step=580 loss=3.2269 acc1=26.56
-train step=600 loss=2.9422 acc1=28.12
-train step=620 loss=3.3322 acc1=14.06
-train step=640 loss=3.7248 acc1=9.38
-train step=660 loss=3.3375 acc1=20.31
-train step=680 loss=3.3692 acc1=21.88
-train step=700 loss=3.6273 acc1=18.75
-train step=720 loss=3.5170 acc1=17.19
-train step=740 loss=3.5035 acc1=14.06
-train step=760 loss=3.3241 acc1=21.88
-train step=780 loss=3.1507 acc1=25.00
-epoch=5 train_acc1=21.051 val_acc1=34.210 val_acc5=65.690 best=34.210
-train step=0 loss=3.3528 acc1=29.69
-train step=20 loss=3.2669 acc1=17.19
-train step=40 loss=3.5373 acc1=21.88
-train step=60 loss=3.0326 acc1=23.44
-train step=80 loss=2.9432 acc1=31.25
-train step=100 loss=3.2912 acc1=20.31
-train step=120 loss=3.3823 acc1=25.00
-train step=140 loss=3.4919 acc1=20.31
-train step=160 loss=3.0864 acc1=18.75
-train step=180 loss=3.4529 acc1=21.88
-train step=200 loss=3.5319 acc1=18.75
-train step=220 loss=3.0067 acc1=25.00
-train step=240 loss=3.3530 acc1=15.62
-train step=260 loss=3.0836 acc1=26.56
-train step=280 loss=3.3908 acc1=15.62
-train step=300 loss=3.3016 acc1=20.31
-train step=320 loss=3.2343 acc1=20.31
-train step=340 loss=3.2124 acc1=18.75
-train step=360 loss=3.1980 acc1=23.44
-train step=380 loss=3.5871 acc1=23.44
-train step=400 loss=2.7595 acc1=21.88
-train step=420 loss=3.2284 acc1=18.75
-train step=440 loss=3.1709 acc1=21.88
-train step=460 loss=3.1928 acc1=28.12
-train step=480 loss=3.1850 acc1=21.88
-train step=500 loss=3.0498 acc1=31.25
-train step=520 loss=3.3744 acc1=15.62
-train step=540 loss=3.4185 acc1=20.31
-train step=560 loss=3.5252 acc1=17.19
-train step=580 loss=3.3871 acc1=20.31
-train step=600 loss=3.3248 acc1=10.94
-train step=620 loss=3.3521 acc1=20.31
-train step=640 loss=3.4735 acc1=18.75
-train step=660 loss=2.9647 acc1=23.44
-train step=680 loss=3.0797 acc1=29.69
-train step=700 loss=3.3246 acc1=23.44
-train step=720 loss=3.0162 acc1=20.31
-train step=740 loss=3.1248 acc1=29.69
-train step=760 loss=3.1297 acc1=21.88
-train step=780 loss=2.9389 acc1=34.38
-epoch=6 train_acc1=22.317 val_acc1=36.870 val_acc5=69.120 best=36.870
-train step=0 loss=3.1049 acc1=20.31
-train step=20 loss=3.2427 acc1=18.75
-train step=40 loss=3.5345 acc1=14.06
-train step=60 loss=3.2294 acc1=20.31
-train step=80 loss=3.0506 acc1=26.56
-train step=100 loss=3.3080 acc1=18.75
-train step=120 loss=3.1113 acc1=25.00
-train step=140 loss=3.5625 acc1=18.75

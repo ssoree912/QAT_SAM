@@ -55,6 +55,7 @@ def parse_args():
     parser.add_argument("--qsam-ratio", type=float, default=1e-3)
     parser.add_argument("--qsam-rho", type=float, default=1.0)
     parser.add_argument("--qsam-warmup-epochs", type=int, default=2)
+    parser.add_argument("--sam-rho", type=float, default=0.05)
     parser.add_argument("--debug-train-batches", type=int, default=0)
     parser.add_argument("--debug-val-batches", type=int, default=0)
     parser.add_argument("--print-freq", type=int, default=20)
@@ -82,8 +83,12 @@ def main():
         wandb.init(project=args.wandb_project, entity=args.wandb_entity, name=run_name, config=vars(args))
     print(f"[google-vit] source repo: {repo_root / 'third_party' / 'vision_transformer'}")
     train_mode = METHOD_TO_TRAIN_MODE[args.method]
-    use_qsam = train_mode is not QsamTrainMode.BASELINE
-    print(f"[qat] method=QViT-LSQ nbits={args.nbits} qsam={use_qsam} loop={train_mode.value}")
+    use_qsam = train_mode in (QsamTrainMode.S2, QsamTrainMode.TWO_PASS)
+    use_sam = train_mode is QsamTrainMode.SAM
+    print(
+        f"[qat] method=QViT-LSQ nbits={args.nbits} "
+        f"qsam={use_qsam} sam={use_sam} loop={train_mode.value}"
+    )
     resume_path = resolve_resume_path(args, output_dir)
     train_loader = build_loader(args, is_train=True)
     val_loader = build_loader(args, is_train=False)
@@ -99,13 +104,15 @@ def main():
             f"[qSAM] enabled={len(enabled)} ratio={args.qsam_ratio} "
             f"rho={args.qsam_rho} loop={train_mode.value}"
         )
+    if use_sam:
+        print(f"[SAM] rho={args.sam_rho} targets=quantized_weight_layers")
     effective_lr = args.lr * args.batch_size / 512.0
     print(f"[optim] base_lr={args.lr} effective_lr={effective_lr} batch_size={args.batch_size}")
     optimizer = torch.optim.AdamW(model.parameters(), lr=effective_lr, weight_decay=args.weight_decay)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=max(args.epochs, 1), eta_min=args.min_lr)
     criterion = nn.CrossEntropyLoss()
     train_runtime = TrainRuntime(model, train_loader, optimizer, criterion, device)
-    train_controls = TrainControls(args.debug_train_batches, args.print_freq)
+    train_controls = TrainControls(args.debug_train_batches, args.print_freq, args.sam_rho)
     best_acc = 0.0
     start_epoch = 0
     if resume_path is not None:

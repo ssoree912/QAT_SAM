@@ -17,6 +17,7 @@ FINETUNE=${FINETUNE:-auto}
 NO_FINETUNE=${NO_FINETUNE:-0}
 DEBUG_TRAIN_BATCHES=${DEBUG_TRAIN_BATCHES:-0}
 DEBUG_VAL_BATCHES=${DEBUG_VAL_BATCHES:-0}
+SAM_RHO=${SAM_RHO:-0.05}
 
 finetune_args=(--finetune "${FINETUNE}")
 if [ "${NO_FINETUNE}" = "1" ]; then
@@ -43,5 +44,6 @@ CUDA_VISIBLE_DEVICES=${GPU} "${PYTHON}" -u google_vit_cifar100.py \
   --output-dir "${OUT}" \
   --debug-train-batches "${DEBUG_TRAIN_BATCHES}" \
   --debug-val-batches "${DEBUG_VAL_BATCHES}" \
+  --sam-rho "${SAM_RHO}" \
   "${finetune_args[@]}" \
   "${wandb_args[@]}"

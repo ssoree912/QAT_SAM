@@ -17,8 +17,13 @@ AO_QAT/resnet_cifar100/data/
 cifar-10-batches-py/
 cifar-100-python/
 
-# --- Experiment output dirs (keep text logs, drop weights via patterns above) ---
-**/log/**/*.pth
+# --- Experiment outputs / logs ---
+runs/
+**/log/
+*.log
+log.txt
+training.txt
+training_screen.txt
 wandb/
 
 # --- Python caches ---
